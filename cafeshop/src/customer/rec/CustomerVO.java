@@ -1,9 +1,9 @@
 package customer.rec;
 
+
 public class CustomerVO {
 	private String custName, custId, custPwd, custGender, custEmail,
 				   custTel, custAddr, custAccount, custDate;
-
 	
 	public CustomerVO(String custName, String custId, String custPwd, String custGender, String custEmail,
 			String custTel, String custAddr, String custAccount, String custDate) {
