@@ -25,7 +25,7 @@ public class CafeShop extends JFrame {
 		getContentPane().add("Center", pane);
 		setSize(300,200);
 		setVisible(true);
-		System.out.println("커피한잔조");
+		
 		
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 	}
