@@ -15,9 +15,9 @@ public class CafeShop extends JFrame {
 
 		
 		JTabbedPane pane = new JTabbedPane();
-		pane.addTab("ȸ��", customer );
-		//pane.addTab("����", history);
-		//pane.addTab("�޴�", menu );
+		pane.addTab("È¸¿ø", customer );
+		//pane.addTab("³»¿ª", history);
+		//pane.addTab("¸Þ´º", menu );
 
 		
 		pane.setSelectedIndex(0);	
@@ -25,6 +25,7 @@ public class CafeShop extends JFrame {
 		getContentPane().add("Center", pane);
 		setSize(300,200);
 		setVisible(true);
+		System.out.println("커피한잔조");
 		
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 	}
