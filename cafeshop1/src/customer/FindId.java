@@ -105,14 +105,21 @@ public class FindId extends JFrame implements ActionListener{
 		pan1.add(pan5);
 		pan1.add(pan4);
 	
-		
+		Color b = new Color(255,223,176);  
+		pan1.setBackground(b);
+		pan2.setBackground(b);    
+		pan3.setBackground(b);    
+		pan4.setBackground(b);    
+		pan5.setBackground(b);    
+		pan6.setBackground(b); 
 		add(pan1);
 		
 		
 		setVisible(true);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(430, 240);
+		//setSize();
+		pack();
 		setResizable(false);
 	}
 	@Override

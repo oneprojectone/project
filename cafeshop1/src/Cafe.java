@@ -3,13 +3,13 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import customer.CustomerDAO;
 import view.CustomerView;
 
 
 public class Cafe extends JFrame {
 
 	CustomerView customer;
-	
 	public Cafe() {
 		customer = new CustomerView();
 		//order = new OrderView();
@@ -17,9 +17,9 @@ public class Cafe extends JFrame {
 
 		
 		JTabbedPane pane = new JTabbedPane();
-		pane.addTab("ÃˆÂ¸Â¿Ã¸", customer );
-		//pane.addTab("Â³Â»Â¿Âª", history);
-		//pane.addTab("Â¸ÃžÂ´Âº", menu );
+		pane.addTab("È¸¿ø", customer );
+		//pane.addTab("³»¿ª", history);
+		//pane.addTab("¸Þ´º", menu );
 
 		
 		pane.setSelectedIndex(0);	
@@ -28,10 +28,12 @@ public class Cafe extends JFrame {
 		//setSize(300,200);
 		pack();
 		setVisible(true);
-		
+		setResizable(false);
+		Color b = new Color(255,223,176);  
+		pane.setBackground(b);
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 	}
 	public static void main(String[] args) {
-		new Cafe();//
+		new Cafe();
 	}
 }

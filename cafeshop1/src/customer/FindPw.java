@@ -27,9 +27,7 @@ public class FindPw extends JFrame implements ActionListener{
 	}
 	
 	FindPw() {
-		setFont(new Font("∞ÌµÒ√º", Font.BOLD,40));
 		
-		setBackground(Color.LIGHT_GRAY);
 		setResizable(true);
 		
 		setLayout( new GridBagLayout() );
@@ -104,7 +102,13 @@ public class FindPw extends JFrame implements ActionListener{
 		pan1.add(pan2);
 		pan1.add(pan5);
 		pan1.add(pan4);
-	
+		Color b = new Color(255,223,176);  
+		pan1.setBackground(b);
+		pan2.setBackground(b);    
+		pan3.setBackground(b);    
+		pan4.setBackground(b);    
+		pan5.setBackground(b);   
+		pan6.setBackground(b);   
 		
 		add(pan1);
 		
@@ -112,7 +116,7 @@ public class FindPw extends JFrame implements ActionListener{
 		setVisible(true);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(430, 240);
+		pack();
 		setResizable(false);
 	}
 	@Override

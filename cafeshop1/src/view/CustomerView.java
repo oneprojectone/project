@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,7 +46,7 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	JTextField  tfCustNameSearch;
 	
 	JButton		bCustDelete, bCustModify, bCustNameSearch, bCustListAll; 
-	
+	JFrame frame;
 	CustomerDAO customer;
 	
 	Statement stmt;
@@ -81,6 +84,9 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	    //bCustNameSearch = new JButton("검색");
 	    bCustModify = new JButton("수정");
 	    bCustDelete	= new JButton("삭제");
+	    bCustListAll.setPreferredSize(new Dimension(20, 30));
+	    bCustModify.setPreferredSize(new Dimension(20, 30));
+	    bCustDelete.setPreferredSize(new Dimension(20, 30));
 	}
 	
 	
@@ -94,24 +100,26 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	
 	JPanel pWestNorthUp	= new JPanel();
 	
+	//tfCustName.setFont(tfCustName.getFont().deriveFont(10.0f));
+	
 	pWestNorthUp.setLayout(new GridLayout(9,2));
-	pWestNorthUp.add(new JLabel("이름"));
+	pWestNorthUp.add(new JLabel("                              이                          름"));
 	pWestNorthUp.add(tfCustName);
-	pWestNorthUp.add(new JLabel("ID"));
+	pWestNorthUp.add(new JLabel("                              I                              D"));
 	pWestNorthUp.add(tfCustId);
-	pWestNorthUp.add(new JLabel("비밀번호"));
+	pWestNorthUp.add(new JLabel("                              비      밀      번      호"));
 	pWestNorthUp.add(tfCustPwd);
-	pWestNorthUp.add(new JLabel("성별"));
+	pWestNorthUp.add(new JLabel("                              성                          별"));
 	pWestNorthUp.add(tfCustGender);
-	pWestNorthUp.add(new JLabel("이메일"));
+	pWestNorthUp.add(new JLabel("                              이           메           일"));
 	pWestNorthUp.add(tfCustEmail);
-	pWestNorthUp.add(new JLabel("전화번호"));
+	pWestNorthUp.add(new JLabel("                              전      화      번      호"));
 	pWestNorthUp.add(tfCustTel);
-	pWestNorthUp.add(new JLabel("주소"));
+	pWestNorthUp.add(new JLabel("                              주                          소"));
 	pWestNorthUp.add(tfCustAddr);
-	pWestNorthUp.add(new JLabel("계좌"));
+	pWestNorthUp.add(new JLabel("                              계      좌      번      호"));
 	pWestNorthUp.add(tfCustAccount);
-	pWestNorthUp.add(new JLabel("가입날짜"));
+	pWestNorthUp.add(new JLabel("                              가      입      날      짜"));
 	pWestNorthUp.add(tfCustDate);
 	
 
@@ -124,7 +132,7 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	JPanel	pWestSouth	= new JPanel();
 	JPanel	pWestSouthUp	= new JPanel();
 	JPanel	pWestSouthDown	= new JPanel();
-	pWestSouthDown.setLayout( new GridLayout( 1, 3 ) );
+	pWestSouthDown.setLayout( new GridLayout( 1, 3,120,120 ) );
 	pWestSouthDown.add( bCustListAll );
 	//pWestSouthDown.add( bCustNameSearch );
 	pWestSouthDown.add( bCustModify );
@@ -151,7 +159,20 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	setLayout( new GridLayout( 1, 2 ) );
 	add( pWest );
 	add( pEast );
+	Color b = new Color(255,223,176);  
+	pEast.setBackground(b);
+	pWest.setBackground(b);
+	pEastNorth.setBackground(b);
+	pWestNorth.setBackground(b);
+	pWestNorthUp.setBackground(b);
+	pWestNorthDown.setBackground(b);
+	pWestSouth.setBackground(b);
+	pWestSouthDown.setBackground(b);
+	pWestSouthUp.setBackground(b);
+	CustomerDAO dao = new CustomerDAO();
+	dao.ListAll(model);
     }
+	  
     
     void setStyle() {
 	
@@ -271,10 +292,19 @@ public void actionPerformed( ActionEvent ev ){
 		clearLayout();
 		
 	}else if ( o == bCustDelete ) {
-		
+		CustomerDAO dao = new CustomerDAO();
 		String name = tfCustName.getText();
         try {
-        customer.deleteCustomer(name);
+        int result = JOptionPane.showConfirmDialog(null, "정말로 삭제하실거에요?", "주의", JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.CLOSED_OPTION) {
+        	dao.ListAll(model);
+        }
+        else if(result == JOptionPane.YES_OPTION) {
+        	customer.deleteCustomer(name);
+        }
+        else {
+        	dao.ListAll(model);
+        }
         System.out.println("삭제 성공");
         }catch(Exception e) {
            JOptionPane.showMessageDialog(null, "삭제 실패 : " + e.getMessage());
