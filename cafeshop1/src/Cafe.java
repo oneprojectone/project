@@ -17,9 +17,9 @@ public class Cafe extends JFrame {
 
 		
 		JTabbedPane pane = new JTabbedPane();
-		pane.addTab("È¸¿ø", customer );
-		//pane.addTab("³»¿ª", history);
-		//pane.addTab("¸Þ´º", menu );
+		pane.addTab("ÃˆÂ¸Â¿Ã¸", customer );
+		//pane.addTab("Â³Â»Â¿Âª", history);
+		//pane.addTab("Â¸ÃžÂ´Âº", menu );
 
 		
 		pane.setSelectedIndex(0);	
@@ -32,6 +32,6 @@ public class Cafe extends JFrame {
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 	}
 	public static void main(String[] args) {
-		new Cafe();
+		new Cafe();//
 	}
 }
