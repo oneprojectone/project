@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -21,11 +22,11 @@ public class HistoryDao {
 	
 
 	HistoryDto dto = new HistoryDto();
-//	SelectFrame sfrdao = new SelectFrame();
+	SelectFrame sfrF = new SelectFrame();
 	
 	
-	String data[][] = new String[0][7]; // 0Àº addRowÇÒ ¶§ ½ÃÀÛÁ¡, 7Àº column °³¼ö
-	String title[] = { "NO", "¾ÆÀÌµğ", "»óÇ°¸í", "»çÀÌÁî", "¿É¼Ç", "°¡°İ", "ÁÖ¹®³¯Â¥" };
+	String data[][] = new String[0][7]; // 0ì€ addRowí•  ë•Œ ì‹œì‘ì , 7ì€ column ê°œìˆ˜
+	String title[] = { "NO", "ì•„ì´ë””", "ìƒí’ˆëª…", "ì‚¬ì´ì¦ˆ", "ì˜µì…˜", "ê°€ê²©", "ì£¼ë¬¸ë‚ ì§œ" };
 	
 	DefaultTableModel model = new DefaultTableModel(data, title); 
 	
@@ -42,10 +43,10 @@ public class HistoryDao {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		    con = DriverManager.getConnection(
 				"jdbc:oracle:thin:@localhost:1521:xe", "lion", "1234");
-		    System.out.println("¿¬°á ¼º°ø!");
+		    System.out.println("ì—°ê²° ì„±ê³µ!");
 		    
 		    
-		} catch (Exception e) { System.out.println("¿¬°á ½ÇÆĞ");
+		} catch (Exception e) { System.out.println("ì—°ê²° ì‹¤íŒ¨");
 		} /*finally {
 			try { con.close(); }
 			catch (SQLException e) { e.printStackTrace(); }
@@ -55,19 +56,19 @@ public class HistoryDao {
 	public void init(Manager mg) {
 		
 		mg.txtNo.setText("");
-//		txtNo.setEditable(false);
+//		mg.txtNo.setEditable(false);
 		mg.txtId.setText("");
-//		txtId.setEditable(false);
+//		mg.txtId.setEditable(false);
 		mg.txtName.setText("");
-//		txtName.setEditable(false);
+//		mg.txtName.setEditable(false);
 		mg.txtSize.setText("");
-//		txtSize.setEditable(false);
+//		mg.txtSize.setEditable(false);
 		mg.txtIh.setText("");
-//		txtIh.setEditable(false);
+//		mg.txtIh.setEditable(false);
 		mg.txtPrice.setText("");
-//		txtPrice.setEditable(false);
+//		mg.txtPrice.setEditable(false);
 		mg.txtDate.setText("");
-//		txtDate.setEditable(false);
+//		mg.txtDate.setEditable(false);
 	}
 	
 	public HistoryDto selectByPk(Integer Num) throws Exception{
@@ -78,7 +79,7 @@ public class HistoryDao {
 	       if( rs.next() )
 	       {
 	          dto.setNo(rs.getString("hno"));
-	          dto.setName(rs.getString("hmenu"));
+	          dto.setMenu(rs.getString("hmenu"));
 	          dto.setId(rs.getString("hid"));
 	          dto.setOption(rs.getString("hoption"));
 	          dto.setSize(rs.getString("hsize"));
@@ -117,12 +118,12 @@ public class HistoryDao {
 		                     rs.getString("hdate")
 		               };
 		            model.addRow(data);
-//		            System.out.println("¸ğµ¨¿¡ µ¥ÀÌÅ¸ ºÙ¿©³ÖÀ½");
+//		            System.out.println("ëª¨ë¸ì— ë°ì´íƒ€ ë¶™ì—¬ë„£ìŒ");
 	 
 		         }
 		
 				
-	} catch (Exception e) { System.out.println("ÀüÃ¼ °Ë»ö ½ÇÆĞ"); 
+	} catch (Exception e) { System.out.println("ì „ì²´ ê²€ìƒ‰ ì‹¤íŒ¨"); 
 	} 
 		finally {
 		try { rs.close(); }
@@ -148,7 +149,7 @@ public class HistoryDao {
 	        		sfr.txtName.setText("");
 	        		sfr.txtDate.setText("");
 //	        		sql = "select * from history where hid = '" + sfr.txtId.getText() + "'";
-//		    		System.out.println("sql ÀÔ·ÂµÊ");
+//		    		System.out.println("sql ì…ë ¥ë¨");
 	        		
 	        	} else if(e.getSource() == sfr.txtName) {
 	        		sfr.txtId.setText("");
@@ -172,28 +173,30 @@ public class HistoryDao {
 	}
 	
 	
-	public void searchview(DefaultTableModel model, SelectFrame sfr) {
+	public void searchview(DefaultTableModel model, SelectFrame sfr, Manager manager) {
 		String sql = "";
+		
+//		ResultSetMetaData rsmd;
 		try {
 			
 			
 //			if(str != null && !str.isEmpty())
 			if (!(sfr.txtId.getText().length() == 0)) {
 				sql = "select * from history where hid like '%" + sfr.txtId.getText() + "%'";
-				System.out.println("¾ÆÀÌµğ·Î °Ë»ö ½ÇÇà");
+				System.out.println("ì•„ì´ë””ë¡œ ê²€ìƒ‰ ì‹¤í–‰");
 			}
 			else if (!(sfr.txtName.getText().length() == 0)) {
 				sql = "select * from history where hmenu like '%" + sfr.txtName.getText() + "%'";
-				System.out.println("»óÇ°¸íÀ¸·Î °Ë»ö ½ÇÇà");
+				System.out.println("ìƒí’ˆëª…ìœ¼ë¡œ ê²€ìƒ‰ ì‹¤í–‰");
 			}
 			else if (!(sfr.txtDate.getText().length() == 0)) {
 				sql = "select * from history where hdate like '%" + sfr.txtDate.getText() + "%'";
-				System.out.println("³¯Â¥·Î °Ë»ö ½ÇÇà");
+				System.out.println("ë‚ ì§œë¡œ ê²€ìƒ‰ ì‹¤í–‰");
 			}
 			
 /*			if(sfr.txtId.getText().length() == 0 && sfr.txtName.getText().length() == 0 
 					&& sfr.txtDate.getText().length() == 0) {
-				 JOptionPane.showMessageDialog(this, "°Ë»öÇÏ°í ½ÍÀº µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				 JOptionPane.showMessageDialog(this, "ê²€ìƒ‰í•˜ê³  ì‹¶ì€ ë°ì´í„°ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				
 			}
 */			
@@ -204,10 +207,29 @@ public class HistoryDao {
 			System.out.println("2");
 			model.setRowCount(0);
 			System.out.println("3");
-//			String temp[] = new String[7];
 			
+//			rsmd = rs.getMetaData();
+
+			Object datas[] = new Object[7];
+			int count = 0;
 			
-				while (rs.next()) {
+			while (rs.next()) {
+				datas[0] = rs.getInt("hno");
+				datas[1] =rs.getString("hid");
+				datas[2] =rs.getString("hmenu");
+				datas[3] =rs.getString("hsize");
+				datas[4] =rs.getString("hoption");
+				datas[5] =rs.getString("hprice");
+				datas[6] =rs.getString("hdate");
+				for(int i=0;i<7;i++) {
+					System.out.print(datas[i]+"\t");}
+					System.out.println();
+					
+					model.addRow(datas);
+				count++;		
+			}
+			
+/*				while (rs.next()) {
 		            Object[] data =
 		               {
 		                     rs.getInt("hno"),
@@ -220,17 +242,28 @@ public class HistoryDao {
 		               };
 		            System.out.println("4");
 		            model.addRow(data);
-/*		            
+		            
 		            for (int i = 0; i < 7; i++) {
 		               System.out.print(data[i] + "\t");
 		            }
 		            System.out.println();
-*/		            
+		            
 		         }
+*/				
+			if(count == 0) {
+				JOptionPane.showMessageDialog(sfr, "ì¼ì¹˜í•˜ëŠ” ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ê²€ìƒ‰í•´ì£¼ì„¸ìš”.");
+/*				sfrF.setVisible(true);
+				init(manager);
+				sfrF.txtId.setEditable(false);
+	        	sfrF.txtName.setEditable(false);
+	        	sfrF.txtDate.setEditable(false);
+				mouseview(sfrF);
+*/				
+				allview(model, manager);
 				
+			}
 				
-				
-	} catch (Exception e) { System.out.println("ÀÏºÎ °Ë»ö ½ÇÆĞ");
+	} catch (Exception e) { System.out.println("ì¼ë¶€ ê²€ìƒ‰ ì‹¤íŒ¨");
 	
 //		finally {
 //		try { rs.close(); pstmt.close();con.close(); }
@@ -241,13 +274,13 @@ public class HistoryDao {
 	
 	
 
-	public void updateview(Manager manager) {
+	public void updateview(DefaultTableModel model,Manager manager) {
 		HistoryDto dtoup = new HistoryDto();
 		try {
 			
 //		      if(txtId.getText() != null && !txtId.getText().isEmpty()) {
 		      if(manager.txtId.getText().length() == 0) {
-		    	  JOptionPane.showMessageDialog(manager, "¼öÁ¤ÇÏ°í ½ÍÀº µ¥ÀÌÅÍ¸¦ ¸ñ·Ï¿¡¼­ ¼±ÅÃÇØÁÖ¼¼¿ä.");
+		    	  JOptionPane.showMessageDialog(manager, "ìˆ˜ì •í•˜ê³  ì‹¶ì€ ë°ì´í„°ë¥¼ ëª©ë¡ì—ì„œ ì„ íƒí•´ì£¼ì„¸ìš”.");
 		    	  return;
 		      }
 		      
@@ -260,7 +293,7 @@ public class HistoryDao {
 		       {
 		    	  
 		          dtoup.setNo(rs.getString("hno"));
-		          dtoup.setName(rs.getString("hmenu"));
+		          dtoup.setMenu(rs.getString("hmenu"));
 		          dtoup.setId(rs.getString("hid"));
 		          dtoup.setOption(rs.getString("hoption"));
 		          dtoup.setSize(rs.getString("hsize"));
@@ -273,44 +306,67 @@ public class HistoryDao {
 //			Historydto dtoup = new Historydto();
 /*		       if(rs.getString("hmenu") == txtName.getText().trim() && rs.getString("hsize") == txtSize.getText().trim() && 
 		    		   rs.getString("hsize") == txtIh.getText().trim() && rs.getString("hprice") == txtPrice.getText().trim()) {
-					JOptionPane.showMessageDialog(this, "»óÇ°¸í, »çÀÌÁî, ¿É¼Ç, °¡°İ¸¸ ¼öÁ¤ÇÒ ¼ö ÀÖ½À´Ï´Ù. ¼öÁ¤ÇÒ ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+					JOptionPane.showMessageDialog(this, "ìƒí’ˆëª…, ì‚¬ì´ì¦ˆ, ì˜µì…˜, ê°€ê²©ë§Œ ìˆ˜ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìˆ˜ì •í•  ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 					return;
 				}
 */				
 		     
-/*		       if(!(dtoup.getNo().trim().equals(txtNo.getText().trim()))) {
-			    	JOptionPane.showMessageDialog(this, "»óÇ°¸í, »çÀÌÁî, ¿É¼Ç, °¡°İ¸¸ ¼öÁ¤ÇÒ ¼ö ÀÖ½À´Ï´Ù. ¼öÁ¤ÇÒ ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+/*		       else if(!(dtoup.getNo().trim().equals(manager.txtNo.getText().trim()))) {
+			    	JOptionPane.showMessageDialog(manager, "no ìƒí’ˆëª…, ì‚¬ì´ì¦ˆ, ì˜µì…˜, ê°€ê²©ë§Œ ìˆ˜ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìˆ˜ì •í•  ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			    	System.out.println("1");
-			    	txtNo.setText(dtoup.getNo());
+			    	manager.txtNo.setText(dtoup.getNo());
 			    	System.out.println("2");
 			    	return;
-			   } if (!(dtoup.getId().trim().equals(txtId.getText().trim()))) {
-			    	JOptionPane.showMessageDialog(this, "»óÇ°¸í, »çÀÌÁî, ¿É¼Ç, °¡°İ¸¸ ¼öÁ¤ÇÒ ¼ö ÀÖ½À´Ï´Ù. ¼öÁ¤ÇÒ ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			} else if (!(dtoup.getId().trim().equals(manager.txtId.getText().trim()))) {
+			    	JOptionPane.showMessageDialog(manager, "id ìƒí’ˆëª…, ì‚¬ì´ì¦ˆ, ì˜µì…˜, ê°€ê²©ë§Œ ìˆ˜ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìˆ˜ì •í•  ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			    	System.out.println("3");
-			    	txtId.setText(dtoup.getId());
+			    	manager.txtId.setText(dtoup.getId());
 			    	System.out.println("4");
 			    	return;
-			   } if (!(dtoup.getDate().trim().equals(txtDate.getText().trim()))){
-			    	JOptionPane.showMessageDialog(this, "»óÇ°¸í, »çÀÌÁî, ¿É¼Ç, °¡°İ¸¸ ¼öÁ¤ÇÒ ¼ö ÀÖ½À´Ï´Ù. ¼öÁ¤ÇÒ ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
-			    	txtDate.setText(dtoup.getDate());
+			} else if (!(dtoup.getDate().trim().equals(manager.txtDate.getText().trim()))){
+			    	JOptionPane.showMessageDialog(manager, "date ìƒí’ˆëª…, ì‚¬ì´ì¦ˆ, ì˜µì…˜, ê°€ê²©ë§Œ ìˆ˜ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìˆ˜ì •í•  ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
+			    	manager.txtDate.setText(dtoup.getDate());
 			    	return;
 			   }
+		      
 			   			   
 			   
 		       System.out.println(dtoup.getId().trim());
 		       System.out.println(txtId.getText().trim());
 		      if(!(dtoup.getId().trim().equals(txtId.getText().trim())) || !(dtoup.getNo().trim().equals(txtNo.getText().trim())) 
 		    		  || !(dtoup.getDate().trim().equals(txtDate.getText().trim()))) {
-		    	  JOptionPane.showMessageDialog(this, "didi»óÇ°¸í, »çÀÌÁî, ¿É¼Ç, °¡°İ¸¸ ¼öÁ¤ÇÒ ¼ö ÀÖ½À´Ï´Ù. ¼öÁ¤ÇÒ ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+		    	  JOptionPane.showMessageDialog(this, "didiìƒí’ˆëª…, ì‚¬ì´ì¦ˆ, ì˜µì…˜, ê°€ê²©ë§Œ ìˆ˜ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìˆ˜ì •í•  ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 		    	  return;
 		      }
 */		    	   
-		      if(dtoup.getName().trim().equals(manager.txtName.getText().trim()) && dtoup.getSize().trim().equals(manager.txtSize.getText().trim()) && 
+		      if(dtoup.getMenu().trim().equals(manager.txtName.getText().trim()) && dtoup.getSize().trim().equals(manager.txtSize.getText().trim()) && 
 					dtoup.getOption().trim().equals(manager.txtIh.getText().trim())  && dtoup.getPrice().trim().equals(manager.txtPrice.getText().trim())) {
-//					System.out.println("if-&&¹® ½ÇÇà");
-		    	   JOptionPane.showMessageDialog(manager, "»óÇ°¸í, »çÀÌÁî, ¿É¼Ç, °¡°İ¸¸ ¼öÁ¤ÇÒ ¼ö ÀÖ½À´Ï´Ù. ¼öÁ¤ÇÒ ³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+//					System.out.println("if-&&ë¬¸ ì‹¤í–‰");
+		    	   JOptionPane.showMessageDialog(manager, "ìƒí’ˆëª…, ì‚¬ì´ì¦ˆ, ì˜µì…˜, ê°€ê²©ë§Œ ìˆ˜ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìˆ˜ì •í•  ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 		    	   return;
-			}
+		      }
+/*			}else if(!(dtoup.getId().trim().equals(manager.txtId.getText().trim())) || !(dtoup.getNo().trim().equals(manager.txtNo.getText().trim())) 
+		    		  || !(dtoup.getDate().trim().equals(manager.txtDate.getText().trim()))) {
+		    	  JOptionPane.showMessageDialog(manager, "didiìƒí’ˆëª…, ì‚¬ì´ì¦ˆ, ì˜µì…˜, ê°€ê²©ë§Œ ìˆ˜ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìˆ˜ì •í•  ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
+		    	  manager.txtNo.setText(dtoup.getNo());
+		    	  manager.txtId.setText(dtoup.getId());
+		    	  manager.txtDate.setText(dtoup.getDate());
+		    	  
+		    	  return;
+		      }
+		      
+		} else if(!(dtoup.getId().trim().equals(manager.txtId.getText().trim()) && dtoup.getNo().trim().equals(manager.txtNo.getText().trim()) 
+	    		  && dtoup.getDate().trim().equals(manager.txtDate.getText().trim()))) {
+	    	  JOptionPane.showMessageDialog(manager, "didiìƒí’ˆëª…, ì‚¬ì´ì¦ˆ, ì˜µì…˜, ê°€ê²©ë§Œ ìˆ˜ì •í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìˆ˜ì •í•  ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
+	    	  manager.txtNo.setText(dtoup.getNo());
+	    	  manager.txtId.setText(dtoup.getId());
+	    	  manager.txtDate.setText(dtoup.getDate());
+	    	  
+	    	  return;
+	      }
+*/	
+		     
+		     
 		      
 		     
 		    		  
@@ -318,10 +374,11 @@ public class HistoryDao {
 					+ "', hoption = '" + manager.txtIh.getText() + "', hprice = '" + manager.txtPrice.getText() + "' where hid = '" + manager.txtId.getText() + "'";
 			pstmt = con.prepareStatement(sqlup);
 			pstmt.executeUpdate(); 
-		} catch (Exception e) { System.out.println("¼öÁ¤ ½ÇÆĞ"); 
+		} catch (Exception e) { System.out.println("ìˆ˜ì • ì‹¤íŒ¨"); 
 		} 
 		
-		JOptionPane.showMessageDialog(manager, "Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.");
+		JOptionPane.showMessageDialog(manager, "ì •ë³´ê°€ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.");
+		allview(model,manager);
 		
 	}
 
@@ -331,20 +388,20 @@ public class HistoryDao {
 		try {
 			
 			if(manager.txtId.getText().length() == 0) {
-		    	  JOptionPane.showMessageDialog(manager, "»èÁ¦ÇÏ°í ½ÍÀº µ¥ÀÌÅÍ¸¦ ¸ñ·Ï¿¡¼­ ¼±ÅÃÇØÁÖ¼¼¿ä.");
+		    	  JOptionPane.showMessageDialog(manager, "ì‚­ì œí•˜ê³  ì‹¶ì€ ë°ì´í„°ë¥¼ ëª©ë¡ì—ì„œ ì„ íƒí•´ì£¼ì„¸ìš”.");
 		    	  return;
 		      }
 			
 			String sql = "delete from history where hid = '" + manager.txtId.getText() + "'";
 			pstmt = con.prepareStatement(sql);
 
-			int message = JOptionPane.showConfirmDialog(manager, "Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?");
+			int message = JOptionPane.showConfirmDialog(manager, "ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
 			if (message == JOptionPane.YES_OPTION) {
 				pstmt.executeUpdate();
-				JOptionPane.showMessageDialog(manager, "µ¥ÀÌÅÍ°¡ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(manager, "ë°ì´í„°ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 			
-		} catch (Exception e) { System.out.println("»èÁ¦ ½ÇÆĞ"); 
+		} catch (Exception e) { System.out.println("ì‚­ì œ ì‹¤íŒ¨"); 
 		} 
 
 	}
