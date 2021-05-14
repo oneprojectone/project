@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -19,16 +18,15 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class MenuMain extends JFrame implements ActionListener, MouseListener {
+public class MenuMain extends JFrame implements ActionListener{
 		JTextField txt;
 		JPanel pan, South; 
 		JPanel p1,p2;
 		JTable table;
 		JButton select, update, del,insert;
 		JRadioButton c,d,a;
-		
 		MenuDAO dao = new MenuDAO();
-		
+		MenuDTO dto = new MenuDTO();
 		String data[][] = new String[0][3];
 		String[] title = {"코드", "상품명", "가격"};
 		DefaultTableModel modelTable = new DefaultTableModel(data,title) {
@@ -37,8 +35,7 @@ public class MenuMain extends JFrame implements ActionListener, MouseListener {
 			 */
 			private static final long serialVersionUID = 1L;
 
-			
-};
+			};
 	
 	public MenuMain() {
 		ButtonGroup Group = new ButtonGroup();
@@ -80,7 +77,17 @@ public class MenuMain extends JFrame implements ActionListener, MouseListener {
 		
 		add(new JScrollPane(table = new JTable(modelTable)), "Center");
 		
-		table.addMouseListener(new mymouseAdapter()); 
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = table.getSelectedRow();
+				
+				dto.setCno(table.getModel().getValueAt(row,0).toString());
+				dto.setCname( table.getModel().getValueAt(row,1).toString());
+				dto.setCprice((Integer)table.getModel().getValueAt(row,2));
+			}
+		}); 
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100,100,700,300);
 		setVisible(true);
@@ -95,13 +102,14 @@ public class MenuMain extends JFrame implements ActionListener, MouseListener {
 			String sur = txt.getText().trim();
 			dao.SearchCname(modelTable,sur);
 		} else if(e.getSource() == update) {
-			new UpPage();
+
+			new UpPage(dto.getCno(),dto.getCname(),dto.getCprice());
 		} else if(e.getSource() == del) {
 			String sur = txt.getText().trim();
 			dao.DeleteMyInfo(sur);
 			dao.selectAll(modelTable);
 		} else if(e.getSource() == insert) {
-			setVisible(false);
+			
 			new InsertPage();
 		} else if(e.getSource() == c) {
 			dao.RdaioSelectType(modelTable, "C");
@@ -112,21 +120,10 @@ public class MenuMain extends JFrame implements ActionListener, MouseListener {
 			dao.RdaioSelectType(modelTable, "A");
 		}
 	}
-	class mymouseAdapter extends MouseAdapter {
-	
-			public void mouseClicked(MouseEvent e) {
-				int row = table.getSelectedRow();
-				  for (int i = 0; i < table.getColumnCount(); i++) {
-					   Object[] updata = {table.getModel().getValueAt(row,i )};
-					
-				  }
-				  		
-				  } 
-			}
 			
 	public static void main(String[] args) {
 		new MenuMain();
 	}
-	}
+}
 
 

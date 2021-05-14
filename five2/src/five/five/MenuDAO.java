@@ -19,7 +19,7 @@ public class MenuDAO {
 	 public	MenuDAO() {
 		 try {
 			connectDB();
-			System.out.println("연결 완료");
+		
 		}catch(Exception e)
 		 {
 			e.printStackTrace();
@@ -118,13 +118,17 @@ public class MenuDAO {
 		}
 	}
 	
-	public void UpdateMyInfo(int row, int col, String sur) {
-		sql= "update from menu set(cno,cname,cprice) = (?,?,?)"
-				+ "where cno = ? or cname = ? or cprice = ?";
+	 void UpdateMyInfo(String sur1, String sur4, String sur5, Integer sur6) {
+	
+		sql= "UPDATE MENU "
+				+ "SET cno ='" + sur4 + "', cname = '"+ sur5 +"', cprice = " + sur6 
+				+ " WHERE cno ='" + sur1 + "'";
+		System.out.println(sql);
 		try {
-		
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
 		} catch(Exception e) {
-			System.out.println("업뎃 실패");
+			System.out.println("업뎃 실패" + e);
 		}
 	}
 

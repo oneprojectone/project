@@ -1,9 +1,10 @@
 package five;
 
 public class MenuDTO {
-	String cno,cname;
-	int cprice;
-	public MenuDTO() {}
+	String cno,cname = null;
+	int cprice = 0;
+	public MenuDTO() {
+	}
 	
 	public MenuDTO(String cno, String cname, int cprice) {
 		this.cno = cno;

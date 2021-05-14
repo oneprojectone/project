@@ -24,11 +24,15 @@ public class UpPage extends JFrame implements ActionListener {
 	JTextField cno,cname,cprice,Ncno,Ncname,Ncprice;
 	
 	 MenuDAO dao = new MenuDAO();
-	 
-	public UpPage() {
+	 UpPage(String no, String name, int price) {
 		panel = new JPanel(new GridLayout(0,2));
 		n1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	
+		n1.add(new JLabel("상품 코드"));
+		n1.add(cno = new JTextField(10));
+		n1.add(new JLabel("상품명"));
+		n1.add(cname = new JTextField(10));
+		n1.add(new JLabel("가 격"));
+		n1.add(cprice = new JTextField(10));
 		n2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		n2.add(new JLabel("뉴상품 코드"));
 		n2.add(Ncno = new JTextField(10));
@@ -50,6 +54,12 @@ public class UpPage extends JFrame implements ActionListener {
 		
 		setSize(250,280);
 		setVisible(true);
+		cno.setText(no);
+		cname.setText(name);
+		cprice.setText(Integer.toString(price));
+		
+		
+		
 		
 	}
 
@@ -57,18 +67,17 @@ public class UpPage extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == checkUpdate) {
 			
+			String sur1 = cno.getText();
+		
 			String sur4 = Ncno.getText();
 			String sur5 = Ncname.getText();
 			Integer sur6 = Integer.parseInt(Ncprice.getText());
 			
-			
+			dao.UpdateMyInfo(sur1,sur4,sur5,sur6);
 			JOptionPane.showMessageDialog(null, "수정 성공");
-			cno.setText("");
-			cname.setText("");
-			cprice.setText("");
+			setVisible(false);
 		}
 	}
 
-	
 
 }

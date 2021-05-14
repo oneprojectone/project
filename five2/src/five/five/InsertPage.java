@@ -59,8 +59,8 @@ public class InsertPage extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == insertBtn) {
-			 String sur1 = txt1.getText();
-			String sur2 = txt2.getText();
+			 String sur1 = txt1.getText().trim();
+			String sur2 = txt2.getText().trim();
 			Integer sur3 = Integer.parseInt(txt3.getText());
 			dao.InsertCname(sur1, sur2, sur3);
 			
