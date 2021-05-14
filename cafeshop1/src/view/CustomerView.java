@@ -26,7 +26,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import customer.CustomerDAO;
-import customer.rec.CustomerVO;
+import customer.CustomerVO;
 
 public class CustomerView extends JPanel implements ActionListener, KeyListener {
 	 private JPanel panel;
@@ -47,11 +47,11 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	
 	JButton		bCustDelete, bCustModify, bCustNameSearch, bCustListAll; 
 	JFrame frame;
-	CustomerDAO customer;
 	
 	Statement stmt;
 	Connection con;
 	ResultSet rs;
+	CustomerDAO dao = new CustomerDAO();
 	
 	public CustomerView(){
 		newObject();
@@ -60,26 +60,20 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 		eventProc();
 		 panel = new JPanel();
 		
-		   try {
-			   customer = new CustomerDAO();
-			   System.out.println("DB연결 성공");
-		   } catch (Exception e) {
-			   JOptionPane.showMessageDialog(null, "DB연결 실패" + e.getMessage());
-		   }
 	   }
 
 	public void	newObject(){
 		
 		
-		tfCustName = new JTextField(30); 
+		tfCustName = new JTextField(5); 
 			
-		tfCustId = new JTextField(30);
-		tfCustPwd = new JTextField(30); 		tfCustGender = new JTextField(30);
-		tfCustEmail = new JTextField(30); 		tfCustTel = new JTextField(30);
-		tfCustAddr = new JTextField(30); 		tfCustAccount = new JTextField(30);
-		tfCustDate = new JTextField(30); 		
+		tfCustId = new JTextField(5);
+		tfCustPwd = new JTextField(5); 		tfCustGender = new JTextField(5);
+		tfCustEmail = new JTextField(5); 		tfCustTel = new JTextField(5);
+		tfCustAddr = new JTextField(5); 		tfCustAccount = new JTextField(5);
+		tfCustDate = new JTextField(5); 		
 
-		tfCustNameSearch = new JTextField(10);
+		tfCustNameSearch = new JTextField(5);
 		bCustListAll = new JButton("조회");
 	    //bCustNameSearch = new JButton("검색");
 	    bCustModify = new JButton("수정");
@@ -103,23 +97,23 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	//tfCustName.setFont(tfCustName.getFont().deriveFont(10.0f));
 	
 	pWestNorthUp.setLayout(new GridLayout(9,2));
-	pWestNorthUp.add(new JLabel("                              이                          름"));
+	pWestNorthUp.add(new JLabel("     이                          름"));
 	pWestNorthUp.add(tfCustName);
-	pWestNorthUp.add(new JLabel("                              I                              D"));
+	pWestNorthUp.add(new JLabel("      I                             D"));
 	pWestNorthUp.add(tfCustId);
-	pWestNorthUp.add(new JLabel("                              비      밀      번      호"));
+	pWestNorthUp.add(new JLabel("     비      밀      번      호"));
 	pWestNorthUp.add(tfCustPwd);
-	pWestNorthUp.add(new JLabel("                              성                          별"));
+	pWestNorthUp.add(new JLabel("     성                          별"));
 	pWestNorthUp.add(tfCustGender);
-	pWestNorthUp.add(new JLabel("                              이           메           일"));
+	pWestNorthUp.add(new JLabel("     이           메           일"));
 	pWestNorthUp.add(tfCustEmail);
-	pWestNorthUp.add(new JLabel("                              전      화      번      호"));
+	pWestNorthUp.add(new JLabel("     전      화      번      호"));
 	pWestNorthUp.add(tfCustTel);
-	pWestNorthUp.add(new JLabel("                              주                          소"));
+	pWestNorthUp.add(new JLabel("     주                          소"));
 	pWestNorthUp.add(tfCustAddr);
-	pWestNorthUp.add(new JLabel("                              계      좌      번      호"));
+	pWestNorthUp.add(new JLabel("     계      좌      번      호"));
 	pWestNorthUp.add(tfCustAccount);
-	pWestNorthUp.add(new JLabel("                              가      입      날      짜"));
+	pWestNorthUp.add(new JLabel("     가      입      날      짜"));
 	pWestNorthUp.add(tfCustDate);
 	
 
@@ -132,7 +126,7 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	JPanel	pWestSouth	= new JPanel();
 	JPanel	pWestSouthUp	= new JPanel();
 	JPanel	pWestSouthDown	= new JPanel();
-	pWestSouthDown.setLayout( new GridLayout( 1, 3,120,120 ) );
+	pWestSouthDown.setLayout( new GridLayout( 1, 3,60,60 ) );
 	pWestSouthDown.add( bCustListAll );
 	//pWestSouthDown.add( bCustNameSearch );
 	pWestSouthDown.add( bCustModify );
@@ -169,7 +163,6 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	pWestSouth.setBackground(b);
 	pWestSouthDown.setBackground(b);
 	pWestSouthUp.setBackground(b);
-	CustomerDAO dao = new CustomerDAO();
 	dao.ListAll(model);
     }
 	  
@@ -198,7 +191,7 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 				String custName = (String)tableCustomer.getValueAt(row, col);
 				CustomerVO vo = new CustomerVO();
 				try {
-					vo = customer.selectByPk(custName);
+					vo = dao.selectByPk(custName);
 				}catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, "회원 검색 실패 : " + ex.getMessage());
 				}
@@ -220,37 +213,9 @@ public void actionPerformed( ActionEvent ev ){
 	Object o = ev.getSource();
 	
 	model.setRowCount(0);
-//	if(o == bCustNameSearch) {
-//		
-//		try {
-//            String name = tfCustName.getText();
-//            m = customer.searchName(name);
-//            
-//		    tfCustName.setText(vo.getCustName());
-//		    tfCustId.setText(vo.getCustId());
-//		    tfCustPwd.setText(vo.getCustPwd());
-//		    tfCustGender.setText(vo.getCustGender());
-//		    tfCustEmail.setText(vo.getCustEmail());
-//	  	    tfCustTel.setText(vo.getCustTel());
-//	  	    tfCustAddr.setText(vo.getCustAddr());
-//	  	    tfCustAccount.setText(vo.getCustAccount());
-//	  	    tfCustDate.setText(vo.getCustDate());
-//		
-//	  	    CustomerDAO dao = new CustomerDAO();
-//	  	    dao.ListAll(model);
-//	  	    
-//	  	   // if (name == tfCustName.setText(vo.getCustName())) {
-//	  	    	
-//	  	   // }
-//	  	    
-//		}catch (Exception e) {
-//             JOptionPane.showMessageDialog
-//             (null, "회원 검색 실패 : " + e.getMessage());
-//		}
-//	}else 
+
 	if ( o == bCustListAll ) {
 		try {
-		CustomerDAO dao = new CustomerDAO();
 		dao.ListAll(model);
 		clearLayout();
 		}catch (Exception e)
@@ -284,7 +249,7 @@ public void actionPerformed( ActionEvent ev ){
 		vo.setPdate(date);
 
 		try {
-			customer.modifyCustomer(vo);
+			dao.modifyCustomer(vo);
 			System.out.println("수정 성공");
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "수정 실패 : " + e.getMessage());
@@ -292,7 +257,6 @@ public void actionPerformed( ActionEvent ev ){
 		clearLayout();
 		
 	}else if ( o == bCustDelete ) {
-		CustomerDAO dao = new CustomerDAO();
 		String name = tfCustName.getText();
         try {
         int result = JOptionPane.showConfirmDialog(null, "정말로 삭제하실거에요?", "주의", JOptionPane.YES_NO_OPTION);
@@ -300,7 +264,7 @@ public void actionPerformed( ActionEvent ev ){
         	dao.ListAll(model);
         }
         else if(result == JOptionPane.YES_OPTION) {
-        	customer.deleteCustomer(name);
+        	dao.deleteCustomer(name);
         }
         else {
         	dao.ListAll(model);
@@ -329,7 +293,6 @@ public void keyTyped(KeyEvent e) {
             String name = tfCustName.getText();
             //key = customer.searchName(name);
             System.out.println(e.getKeyChar());
-            CustomerDAO dao = new CustomerDAO();
             String kkk = e.getKeyChar() + "";
             name =  name + kkk;
 
@@ -365,17 +328,3 @@ public void clearLayout() {
 	  
 	}
 }	
-//	class MenuTab extends JPanel{
-//		   public MenuTab() {
-//		      setLayout(new BorderLayout());
-//		      SearchPanel westPanel = new SearchPanel();
-//		      ListPanel center = new ListPanel();
-//		      ButtonPanel southPanel = new ButtonPanel();
-//		      
-//		     
-//		      add(westPanel, BorderLayout.WEST);
-//		      add(center, BorderLayout.CENTER);
-//		      add(southPanel, BorderLayout.SOUTH);
-//		   }
-//		}
-//		

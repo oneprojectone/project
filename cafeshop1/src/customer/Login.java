@@ -26,6 +26,7 @@ public class Login extends JFrame implements ActionListener{
 	ImageIcon image, image1;
 	Graphics g;
 	Graphics2D g2 = (Graphics2D)g;
+	CustomerDAO dao = new CustomerDAO();
 	public static void main(String[] args) {
 		Login lg = new  Login();
 	}
@@ -74,7 +75,8 @@ public class Login extends JFrame implements ActionListener{
 		forpass = new JButton("비밀번호 찾기");
 		newID = new JButton("신규가입");
 		ok.setPreferredSize(new Dimension(80, 40));
-
+//		setContentAreaField(false);
+//        setFocusPainted(false);
 
 
 		empty1 = new JLabel("   ");
@@ -238,6 +240,10 @@ public class Login extends JFrame implements ActionListener{
 		}
 		else if(o==newID) {
 			Door door = new Door();
+		}
+		else if(o==ok) {
+			dao.loginCheck(this);
+			
 		}
 		
 	}

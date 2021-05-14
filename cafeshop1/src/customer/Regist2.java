@@ -19,8 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import customer.rec.CustomerVO;
-
 
 public class Regist2 extends JPanel implements ActionListener, KeyListener {
 
