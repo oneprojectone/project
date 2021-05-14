@@ -31,8 +31,8 @@ public class Manager extends JPanel implements ActionListener{
 	HistoryDao dao = new HistoryDao();
 	HistoryDto dto = new HistoryDto();
 	
-	String data[][] = new String[0][7]; // 0Àº addRowÇÒ ¶§ ½ÃÀÛÁ¡, 7Àº column °³¼ö
-	String title[] = { "NO", "¾ÆÀÌµğ", "»óÇ°¸í", "»çÀÌÁî", "¿É¼Ç", "°¡°İ", "ÁÖ¹®³¯Â¥" };
+	String data[][] = new String[0][7]; // 0ì€ addRowí•  ë•Œ ì‹œì‘ì , 7ì€ column ê°œìˆ˜
+	String title[] = { "NO", "ì•„ì´ë””", "ìƒí’ˆëª…", "ì‚¬ì´ì¦ˆ", "ì˜µì…˜", "ê°€ê²©", "ì£¼ë¬¸ë‚ ì§œ" };
 	
 	
 	DefaultTableModel model = new DefaultTableModel(data, title) {
@@ -41,7 +41,7 @@ public class Manager extends JPanel implements ActionListener{
 		}
 	};
 	
-	JTable table = new JTable(model); // °Ë»ö, ÀüÃ¼º¸±â¸¦ À§ÇÑ Å×ÀÌºí °´Ã¼ »ı¼º
+	JTable table = new JTable(model); // ê²€ìƒ‰, ì „ì²´ë³´ê¸°ë¥¼ ìœ„í•œ í…Œì´ë¸” ê°ì²´ ìƒì„±
 	JScrollPane panScorllCenter = new JScrollPane(table);
 	
 	
@@ -50,31 +50,31 @@ public class Manager extends JPanel implements ActionListener{
 		setLayout(new BorderLayout());
 		panWest = new JPanel(new GridLayout(7,0));
 		p1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p1.add(new JLabel("¹ø È£"));
+		p1.add(new JLabel("ë²ˆ í˜¸"));
 		p1.add(txtNo = new JTextField(12));
 		panWest.add(p1);
 		p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p2.add(new JLabel("¾Æ ÀÌ µğ"));
+		p2.add(new JLabel("ì•„ ì´ ë””"));
 		p2.add(txtId = new JTextField(12));
 		panWest.add(p2);
 		p3 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p3.add(new JLabel("»ó Ç° ¸í"));
+		p3.add(new JLabel("ìƒ í’ˆ ëª…"));
 		p3.add(txtName = new JTextField(12));
 		panWest.add(p3);
 		p4 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p4.add(new JLabel("»ç ÀÌ Áî"));
+		p4.add(new JLabel("ì‚¬ ì´ ì¦ˆ"));
 		p4.add(txtSize = new JTextField(12));
 		panWest.add(p4);
 		p5 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p5.add(new JLabel("¿É ¼Ç"));
+		p5.add(new JLabel("ì˜µ ì…˜"));
 		p5.add(txtIh = new JTextField(12));
 		panWest.add(p5);
 		p6 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p6.add(new JLabel("°¡ °İ"));
+		p6.add(new JLabel("ê°€ ê²©"));
 		p6.add(txtPrice = new JTextField(12));
 		panWest.add(p6);
 		p7 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p7.add(new JLabel("ÁÖ ¹® ³¯ Â¥"));
+		p7.add(new JLabel("ì£¼ ë¬¸ ë‚  ì§œ"));
 		p7.add(txtDate = new JTextField(12));
 		panWest.add(p7);
 		add(panWest, "West");
@@ -83,11 +83,11 @@ public class Manager extends JPanel implements ActionListener{
 		
 		
 		panSouth = new JPanel();
-		panSouth.add(btnTotal = new JButton("ÀüÃ¼º¸±â"));
-		panSouth.add(btnSearch = new JButton("°Ë  »ö"));
-		panSouth.add(btnAdd = new JButton("¼ö  Á¤"));
-		panSouth.add(btnDel = new JButton("»è  Á¦"));
-//		panSouth.add(btnCancel = new JButton("Ãë  ¼Ò"));
+		panSouth.add(btnTotal = new JButton("ì „ì²´ë³´ê¸°"));
+		panSouth.add(btnSearch = new JButton("ê²€  ìƒ‰"));
+		panSouth.add(btnAdd = new JButton("ìˆ˜  ì •"));
+		panSouth.add(btnDel = new JButton("ì‚­  ì œ"));
+//		panSouth.add(btnCancel = new JButton("ì·¨  ì†Œ"));
 		add(panSouth, "South");
 		
 /*		addWindowListener(new WindowAdapter() {
@@ -105,7 +105,7 @@ public class Manager extends JPanel implements ActionListener{
 		sfr.btnOk.addActionListener(this);
 		sfr.btnCancel.addActionListener(this);
 //		btnCancel.addActionListener(this);
-		// ºó Å×ÀÌºí °´Ã¼ »ı¼º
+		// ë¹ˆ í…Œì´ë¸” ê°ì²´ ìƒì„±
 //		add(new JScrollPane(table = new JTable()), "Center");
 		
 		
@@ -116,19 +116,17 @@ public class Manager extends JPanel implements ActionListener{
 		         int col = 0;
 		         int Num = (Integer)table.getValueAt(row, col);
 		         
-//		          System.out.println("ºÒ·¯¿È1");
+//		          System.out.println("ë¶ˆëŸ¬ì˜´1");
 		         try {
 		            dto = dao.selectByPk(Num);
-//		            System.out.println("ºÒ·¯¿È2");
+//		            System.out.println("ë¶ˆëŸ¬ì˜´2");
 		         }catch (Exception ex) {
-		            JOptionPane.showMessageDialog(null, "°Ë»ö ½ÇÆĞ : " + ex.getMessage());
+		            JOptionPane.showMessageDialog(null, "ê²€ìƒ‰ ì‹¤íŒ¨ : " + ex.getMessage());
 		         }
-		         
-		         
 
 		         txtNo.setText(dto.getNo());  
 		         txtId.setText(dto.getId());
-		         txtName.setText(dto.getName());
+		         txtName.setText(dto.getMenu());
 		         txtSize.setText(dto.getSize());
 		         txtIh.setText(dto.getOption());
 		         txtPrice.setText(dto.getPrice());
@@ -181,11 +179,11 @@ public class Manager extends JPanel implements ActionListener{
 		}
 		
 		else if (ob == sfr.btnOk) {
-			dao.searchview(model, sfr);
+			dao.searchview(model, sfr, this);
 			
 			if(sfr.txtId.getText().length() == 0 && sfr.txtName.getText().length() == 0 
 					&& sfr.txtDate.getText().length() == 0) {
-				JOptionPane.showMessageDialog(sfr, "°Ë»öÇÏ°í ½ÍÀº µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				JOptionPane.showMessageDialog(sfr, "ê²€ìƒ‰í•˜ê³  ì‹¶ì€ ë°ì´í„°ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				sfr.setVisible(true);
 				sfr.txtId.setEditable(false);
 	        	sfr.txtName.setEditable(false);
@@ -194,11 +192,12 @@ public class Manager extends JPanel implements ActionListener{
 			}
 			else if(sfr.txtId.getText().length() == 0 || sfr.txtName.getText().length() == 0 
 					|| sfr.txtDate.getText().length() == 0) {			
-//				JOptionPane.showMessageDialog(sfr, "Á¤º¸°¡ °Ë»ö µÇ¾ú½À´Ï´Ù.");
+//				JOptionPane.showMessageDialog(sfr, "ì •ë³´ê°€ ê²€ìƒ‰ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				sfr.txtId.setText("");
 				sfr.txtName.setText("");
 				sfr.txtDate.setText("");
 				sfr.setVisible(false);
+				
 			}
 			
 		}
@@ -211,7 +210,7 @@ public class Manager extends JPanel implements ActionListener{
 
 		
 		else if (ob == btnAdd) {
-			dao.updateview(this);
+			dao.updateview(model, this);
 		}
 		
 		else if (ob == btnDel) {
@@ -222,9 +221,9 @@ public class Manager extends JPanel implements ActionListener{
 			try {
 				if(ob == sfr.btnOk) {
 				searchview();
-				System.out.println("È®ÀÎ¹öÆ°");
+				System.out.println("í™•ì¸ë²„íŠ¼");
 			    }
-			}catch (Exception i) { System.out.println("¿À·ù"); }
+			}catch (Exception i) { System.out.println("ì˜¤ë¥˜"); }
 			
 //			txtId.setEditable(true);
 //			txtName.setEditable(true);
@@ -244,11 +243,11 @@ public class Manager extends JPanel implements ActionListener{
 
 			String la = submit.submit.getText();
 
-			if (la.equals("µî  ·Ï")) {
+			if (la.equals("ë“±  ë¡")) {
 
 				if (!checkID(id)) {
 
-					JOptionPane.showMessageDialog(submit, "ÀÌ¹Ì µî·Ï µÈ IDÀÔ´Ï´Ù.");
+					JOptionPane.showMessageDialog(submit, "ì´ë¯¸ ë“±ë¡ ëœ IDì…ë‹ˆë‹¤.");
 
 					return;
 
@@ -290,7 +289,7 @@ public class Manager extends JPanel implements ActionListener{
 
 			if (id.equals("")) {
 
-				JOptionPane.showMessageDialog(submit, "¾ÆÀÌµğ ÀÔ·Â");
+				JOptionPane.showMessageDialog(submit, "ì•„ì´ë”” ì…ë ¥");
 
 				submit.tf_id.requestFocus();
 
@@ -300,13 +299,13 @@ public class Manager extends JPanel implements ActionListener{
 
 			if (checkID(id)) {
 
-				JOptionPane.showMessageDialog(submit, "»ç¿ë°¡´ÉÇÑ IDÀÔ´Ï´Ù.");
+				JOptionPane.showMessageDialog(submit, "ì‚¬ìš©ê°€ëŠ¥í•œ IDì…ë‹ˆë‹¤.");
 
 				submit.tf_pass1.requestFocus();
 
 			} else {
 
-				JOptionPane.showMessageDialog(submit, "µî·Ï µÈ IDÀÔ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
+				JOptionPane.showMessageDialog(submit, "ë“±ë¡ ëœ IDì…ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”.");
 
 				submit.tf_id.setText(null);
 
@@ -330,13 +329,13 @@ public class Manager extends JPanel implements ActionListener{
 
 				JOptionPane.showMessageDialog(submit, 
 
-						"°ü¸®ÀÚ ÀÎÁõÀÌ ÇÊ¿äÇÕ´Ï´Ù. \n °ü¸®ÀÚ·Î ·Î±×ÀÎÇÏ¼¼¿ä.");
+						"ê´€ë¦¬ì ì¸ì¦ì´ í•„ìš”í•©ë‹ˆë‹¤. \n ê´€ë¦¬ìë¡œ ë¡œê·¸ì¸í•˜ì„¸ìš”.");
 
 				return;
 
 			} else {
 
-				JOptionPane.showMessageDialog(submit, "°ü¸®ÀÚ  ·Î±×ÀÎ µÇ¾ú½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(submit, "ê´€ë¦¬ì  ë¡œê·¸ì¸ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 
 				del.setEnabled(true);
 
