@@ -4,6 +4,9 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -16,7 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class MenuMain extends JFrame implements ActionListener {
+public class MenuMain extends JFrame implements ActionListener, MouseListener {
 		JTextField txt;
 		JPanel pan, South; 
 		JPanel p1,p2;
@@ -73,9 +76,11 @@ public class MenuMain extends JFrame implements ActionListener {
 		c.addActionListener(this);		
 		d.addActionListener(this);	
 		a.addActionListener(this);
-		
+			
 		
 		add(new JScrollPane(table = new JTable(modelTable)), "Center");
+		
+		table.addMouseListener(new mymouseAdapter()); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100,100,700,300);
 		setVisible(true);
@@ -90,7 +95,7 @@ public class MenuMain extends JFrame implements ActionListener {
 			String sur = txt.getText().trim();
 			dao.SearchCname(modelTable,sur);
 		} else if(e.getSource() == update) {
-			
+			new UpPage();
 		} else if(e.getSource() == del) {
 			String sur = txt.getText().trim();
 			dao.DeleteMyInfo(sur);
@@ -99,16 +104,29 @@ public class MenuMain extends JFrame implements ActionListener {
 			setVisible(false);
 			new InsertPage();
 		} else if(e.getSource() == c) {
-			
+			dao.RdaioSelectType(modelTable, "C");
 		}
 		else if(e.getSource() == d) {
-			
+			dao.RdaioSelectType(modelTable, "D");
 		} else {
-		
+			dao.RdaioSelectType(modelTable, "A");
 		}
 	}
+	class mymouseAdapter extends MouseAdapter {
+	
+			public void mouseClicked(MouseEvent e) {
+				int row = table.getSelectedRow();
+				  for (int i = 0; i < table.getColumnCount(); i++) {
+					   Object[] updata = {table.getModel().getValueAt(row,i )};
+					
+				  }
+				  		
+				  } 
+			}
+			
 	public static void main(String[] args) {
 		new MenuMain();
 	}
-}
+	}
+
 

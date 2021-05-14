@@ -13,8 +13,7 @@ public class MenuDAO {
 	 PreparedStatement pstmt;  
 	 ResultSet rs;
 	 Statement stmt;
-	 String sql; 
-	
+	 private String sql; 
 	
 	 
 	 public	MenuDAO() {
@@ -99,14 +98,37 @@ public class MenuDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	void UpdateMyInfo(MenuDTO dto) {
+	void RdaioSelectType(DefaultTableModel model,String cno) {
+		sql ="select * from menu where cno like '%' || ? || '%' order by cno";
 		try {
-			sql ="update menu set cno = ?, cname = ?, cprice = ?";
+			for(int i =0; i< model.getRowCount();) {
+				model.removeRow(0);
+			}
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cno);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Object[] data = { rs.getString("cno"),rs.getString("cname"),
+				 rs.getInt("cprice")
+				 };
+				 model.addRow(data);
+			}
+		} catch(Exception e) {
+			System.out.println("selectcname" + e);
+		}
+	}
+	
+	public void UpdateMyInfo(int row, int col, String sur) {
+		sql= "update from menu set(cno,cname,cprice) = (?,?,?)"
+				+ "where cno = ? or cname = ? or cprice = ?";
+		try {
+		
 		} catch(Exception e) {
 			System.out.println("¾÷µ« ½ÇÆÐ");
 		}
 	}
+
+	
 
 	
 
