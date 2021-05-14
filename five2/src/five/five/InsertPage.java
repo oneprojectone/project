@@ -24,7 +24,7 @@ public class InsertPage extends JFrame implements ActionListener{
 	 JButton insertBtn;
 	 PreparedStatement pstmtInsert;
 	 Connection conn;
-	private String sqlInsert = "insert into menu values(?,?,?)";
+	
 	InsertPage () {
 		JPanel jpaenl = new JPanel();
 		
@@ -51,20 +51,8 @@ public class InsertPage extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(350,250,530,100);
 		setVisible(true);
-		dbConnect();
+		
 	}
-	private void dbConnect() {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "lion", "1234");
-			
-			pstmtInsert = conn.prepareStatement(sqlInsert);
-			System.out.println("연결 성공");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	 public void insert() {
 		 String sur1 = txt1.getText();
 		String sur2 = txt2.getText();

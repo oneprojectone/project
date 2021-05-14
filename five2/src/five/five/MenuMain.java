@@ -76,14 +76,13 @@ public class MenuMain extends JFrame implements ActionListener {
 		d.addActionListener(this);	
 		a.addActionListener(this);
 		
-		dao.selectAll(modelTable);
+		
 		add(new JScrollPane(table = new JTable(modelTable)), "Center");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100,100,700,300);
 		setVisible(true);
 		
-	
-	
+		dao.selectAll(modelTable);
 	}
 	
 	@Override
@@ -98,6 +97,7 @@ public class MenuMain extends JFrame implements ActionListener {
 		} else if(e.getSource() == del) {
 			String sur = txt.getText().trim();
 			dao.DeleteMyInfo(sur);
+			dao.selectAll(modelTable);
 		} else if(e.getSource() == insert) {
 			setVisible(false);
 			
