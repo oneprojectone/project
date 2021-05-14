@@ -34,9 +34,7 @@ public class MenuMain extends JFrame implements ActionListener {
 			 */
 			private static final long serialVersionUID = 1L;
 
-			public boolean CellTalble(int row, int col) { 
-				return false;
-			}
+			
 };
 	
 	public MenuMain() {
@@ -89,9 +87,8 @@ public class MenuMain extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == select) {
-			//String sur = txt.getText().trim();
-			
-			
+			String sur = txt.getText().trim();
+			dao.SearchCname(modelTable,sur);
 		} else if(e.getSource() == update) {
 			
 		} else if(e.getSource() == del) {
@@ -100,7 +97,7 @@ public class MenuMain extends JFrame implements ActionListener {
 			dao.selectAll(modelTable);
 		} else if(e.getSource() == insert) {
 			setVisible(false);
-			
+			new InsertPage();
 		} else if(e.getSource() == c) {
 			
 		}

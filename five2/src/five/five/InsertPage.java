@@ -22,8 +22,10 @@ public class InsertPage extends JFrame implements ActionListener{
 	 JTextField txt2;
 	 JTextField txt3;
 	 JButton insertBtn;
-	 PreparedStatement pstmtInsert;
-	 Connection conn;
+	
+	 MenuDAO dao = new MenuDAO();
+	
+	 
 	
 	InsertPage () {
 		JPanel jpaenl = new JPanel();
@@ -53,31 +55,19 @@ public class InsertPage extends JFrame implements ActionListener{
 		setVisible(true);
 		
 	}
-	 public void insert() {
-		 String sur1 = txt1.getText();
-		String sur2 = txt2.getText();
-		String sur3 = txt3.getText();
-		 try {
-		pstmtInsert.setString(1,sur1);
-		pstmtInsert.setString(2,sur2);
-		pstmtInsert.setString(3,sur3);
-		pstmtInsert.executeUpdate();
-		JOptionPane.showMessageDialog(null, "추가 성공");
-		
-		txt1.setText("");
-		txt2.setText("");
-		txt3.setText("");
-		
-		
-		 } catch(Exception e) {
-			 System.out.println("실패" + e);
-	 }
-		 
-	}
+	 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == insertBtn) {
-			insert();
+			 String sur1 = txt1.getText();
+			String sur2 = txt2.getText();
+			Integer sur3 = Integer.parseInt(txt3.getText());
+			dao.InsertCname(sur1, sur2, sur3);
+			
+			JOptionPane.showMessageDialog(null, "추가 성공");
+			txt1.setText("");
+			txt2.setText("");
+			txt3.setText("");
 		}
 	}
 }

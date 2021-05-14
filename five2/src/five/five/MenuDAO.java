@@ -34,8 +34,8 @@ public class MenuDAO {
 			}
 		}
 		
-	//전체보기
-	public void selectAll(DefaultTableModel model) {
+	
+	 void selectAll(DefaultTableModel model) {
 			 sql = "select * from menu order by cno";
 			try {
 				pstmt = con.prepareStatement(sql);
@@ -56,20 +56,36 @@ public class MenuDAO {
 			
 			}
 	}
-	//검색 버튼
-	public void SearchCname(MenuDTO dto, String cName) {
-			sql = "select cname from menu where cname = ?";
+	
+	 void SearchCname(DefaultTableModel model, String cName) {
+			sql = "select * from menu where  cname like '%' || ? || '%' order by cno";
 		try {
+			for(int i =0; i< model.getRowCount();) {
+				model.removeRow(0);
+			}
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, cName);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				dto.setCno(rs.getString("cno"));
-				dto.setCname(rs.getString("cname"));
-				dto.setCprice(rs.getInt("cprice"));
+			while (rs.next()) {
+				Object[] data = { rs.getString("cno"),rs.getString("cname"),
+				 rs.getInt("cprice")
+				 };
+				 model.addRow(data);
 			}
 		} catch(Exception e) {
 			System.out.println("selectcname" + e);
+		}
+	}
+	 void InsertCname(String cno, String cname, Integer cprice) {
+		sql = "insert into menu values(?, ?, ?)";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cno);
+			pstmt.setString(2, cname);
+			pstmt.setInt(3, cprice);
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -84,11 +100,6 @@ public class MenuDAO {
 		}
 	}
 	
-	
-	
-	
-	
-	
 	void UpdateMyInfo(MenuDTO dto) {
 		try {
 			sql ="update menu set cno = ?, cname = ?, cprice = ?";
@@ -96,5 +107,7 @@ public class MenuDAO {
 			System.out.println("업뎃 실패");
 		}
 	}
+
+	
 
 }
