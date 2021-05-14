@@ -2,7 +2,7 @@
 public class HistoryDto {
 	private String no;
 	private String id;
-	private String name;
+	private String menu;
 	private String size;
 	private String option; 
 	private String price;
@@ -20,11 +20,11 @@ public class HistoryDto {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getMenu() {
+		return menu;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMenu(String menu) {
+		this.menu = menu;
 	}
 	public String getSize() {
 		return size;
@@ -50,7 +50,7 @@ public class HistoryDto {
 	public void setDate(String date) {
 		this.date = date;
 	}
- 
+
 	
    
 }
