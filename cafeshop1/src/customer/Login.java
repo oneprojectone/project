@@ -55,6 +55,7 @@ public class Login extends JFrame implements ActionListener{
 		banner.setIcon(image);
 		one.setIcon(image1);
 		
+		
 		pan1 = new JPanel();
 		pan2 = new JPanel();
 		pan3 = new JPanel();
@@ -67,20 +68,47 @@ public class Login extends JFrame implements ActionListener{
 		pan10 = new JPanel();
 		pan11 = new JPanel();
 		
+		ImageIcon normalIcon = new ImageIcon("normal.png");
+		ImageIcon rolloverIcon = new ImageIcon("rollover.png");
+		ImageIcon pressedIcon = new ImageIcon("pressed.png");
+		
+		ImageIcon normalIcon1 = new ImageIcon("normal1.png");
+		ImageIcon rolloverIcon1 = new ImageIcon("rollover1.png");
+		ImageIcon pressedIcon1 = new ImageIcon("pressed1.png");
+		
+		ImageIcon normalIcon2 = new ImageIcon("normal2.png");
+		ImageIcon rolloverIcon2 = new ImageIcon("rollover2.png"
+				+ "");
+		ImageIcon pressedIcon2 = new ImageIcon("pressed2.png");
+		
+		ImageIcon normalIcon3 = new ImageIcon("normal3.png");
+		ImageIcon rolloverIcon3 = new ImageIcon("rollover3.png");
+		ImageIcon pressedIcon3 = new ImageIcon("pressed3.png");
 				
 		tf1 = new TextField(20);
 		tf2 = new TextField(20);
-		ok = new JButton("로그인");
-		forid = new JButton("아이디 찾기");
-		forpass = new JButton("비밀번호 찾기");
-		newID = new JButton("신규가입");
-		ok.setPreferredSize(new Dimension(80, 40));
-//		setContentAreaField(false);
-//        setFocusPainted(false);
+		ok = new JButton("", normalIcon);
+		forid = new JButton("", normalIcon1);
+		forpass = new JButton("", normalIcon2) ;
+		newID = new JButton("", normalIcon3);
+		ok.setPreferredSize(new Dimension(163, 35));
+		forid.setPreferredSize(new Dimension(100, 35));
+		forpass.setPreferredSize(new Dimension(100, 35));
+		newID.setPreferredSize(new Dimension(100, 35));
 
+		ok.setRolloverIcon(rolloverIcon);
+		ok.setPressedIcon(pressedIcon);
+		forid.setRolloverIcon(rolloverIcon1);
+		forid.setPressedIcon(pressedIcon1);
+		forpass.setRolloverIcon(rolloverIcon2);
+		forpass.setPressedIcon(pressedIcon2);
+		newID.setRolloverIcon(rolloverIcon3);
+		newID.setPressedIcon(pressedIcon3);
+		
+		
 
 		empty1 = new JLabel("   ");
-		empty2 = new JLabel("                                                  ");
+		empty2 = new JLabel("                       ");
 		empty3 = new JLabel("   ");
 		empty4 = new JLabel("   ");
 	
@@ -214,6 +242,7 @@ public class Login extends JFrame implements ActionListener{
 		add(pan1);
 		tf2.setEchoChar('*');
 		setVisible(true);
+		setLocationRelativeTo(null);
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//아이디 비밀 번호 찾기 버튼

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class Singleton {
 	static Connection con;
-	String url = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
 	String user = "one";
 	String pass = "cafe";
 	String driver = "oracle.jdbc.driver.OracleDriver";

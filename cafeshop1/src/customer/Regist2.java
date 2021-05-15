@@ -73,6 +73,8 @@ public class Regist2 extends JPanel implements ActionListener, KeyListener {
 		mf.add(male);
 		mf.add(female);
 		
+		
+		
 		pan1.setLayout( new GridBagLayout() );
 		GridBagConstraints	cba = new GridBagConstraints();
 		cba.weightx	= 0.1;

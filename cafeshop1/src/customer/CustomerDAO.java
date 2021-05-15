@@ -11,16 +11,14 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class CustomerDAO {
-	Connection con=null; 	PreparedStatement pstmt; 	
+	Connection con; 	PreparedStatement pstmt; 	
 	ResultSet rs; 		Statement stmt;
 	String sql;
 	JTable		tableCustomer;
 	
 	public	CustomerDAO() {
-		try {
+		
 		connectDB();
-		System.out.println("연결 완료");
-	} catch(Exception e) { e.printStackTrace(); } 
 	}
 	
 	void connectDB() {
@@ -81,8 +79,7 @@ public class CustomerDAO {
  			temp[8] = rs.getString("pdate");
  			model.addRow(temp);
          }
-         rs.close();
-         stmt.close();
+        
          return model;
 	}	
 	
@@ -131,8 +128,6 @@ public class CustomerDAO {
             vo.setPdate(rs.getString("PDATE"));
 		}
 		
-		rs.close();
-		stmt.close();
 		
 		return vo;
 	}
@@ -311,6 +306,7 @@ public class CustomerDAO {
 							CafeCustomer cc = new CafeCustomer(id);
 						JOptionPane.showMessageDialog(login, id + "님 환영합니다");
 						login.setVisible(false);}
+						CafeCustomer cafe = new CafeCustomer(login.tf1.getText());
 						
 				}
 					else {
