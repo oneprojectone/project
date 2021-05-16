@@ -1,6 +1,8 @@
 package five;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +20,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class MenuMain extends JFrame implements ActionListener{
+public class MenuMain extends JPanel implements ActionListener{
 		JTextField txt;
 		JPanel pan, South; 
 		JPanel p1,p2;
@@ -27,9 +29,10 @@ public class MenuMain extends JFrame implements ActionListener{
 		JRadioButton c,d,a;
 		MenuDAO dao = new MenuDAO();
 		MenuDTO dto = new MenuDTO();
-		String data[][] = new String[0][3];
-		String[] title = {"코드", "상품명", "가격"};
-		DefaultTableModel modelTable = new DefaultTableModel(data,title) {
+		static int count[] = new int[3];
+		static String data[][] = new String[0][3];
+		static String[] title = {"상품 코드", "상품명", "가격"};
+		static DefaultTableModel modelTable = new DefaultTableModel(data,title) {
 			/**
 			 * 
 			 */
@@ -44,11 +47,18 @@ public class MenuMain extends JFrame implements ActionListener{
 		d = new JRadioButton("디저트");
 		
 		pan = new JPanel(new GridLayout(2,0));
-		p1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		p1.add(new JLabel("상품명"));
+		
+		p1 = new JPanel(new FlowLayout());
+		p1.add(new JLabel("상품명 :"));
 		p1.add(txt = new JTextField(12));
+		p1.add(select = new JButton());
+		select.setText("검색");
+		select.setSize(20, 30);
+		select.setLocation(120, 120);
+
 		pan.add(p1);
-		p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		
+		p2 = new JPanel(new FlowLayout());
 		
 		Group.add(c);
 		Group.add(d);
@@ -60,7 +70,7 @@ public class MenuMain extends JFrame implements ActionListener{
 		
 		add(pan, "West");
 		South = new JPanel();
-		South.add(select = new JButton("검색"));
+	
 		South.add(update = new JButton("수정"));
 		South.add(del= new JButton("삭제"));
 		South.add(insert= new JButton("추가"));
@@ -88,7 +98,7 @@ public class MenuMain extends JFrame implements ActionListener{
 			}
 		}); 
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		setBounds(100,100,700,300);
 		setVisible(true);
 		
@@ -105,11 +115,10 @@ public class MenuMain extends JFrame implements ActionListener{
 
 			new UpPage(dto.getCno(),dto.getCname(),dto.getCprice());
 		} else if(e.getSource() == del) {
-			String sur = txt.getText().trim();
-			dao.DeleteMyInfo(sur);
+		
+			dao.DeleteMyInfo(dto.getCno());
 			dao.selectAll(modelTable);
 		} else if(e.getSource() == insert) {
-			
 			new InsertPage();
 		} else if(e.getSource() == c) {
 			dao.RdaioSelectType(modelTable, "C");
@@ -120,10 +129,7 @@ public class MenuMain extends JFrame implements ActionListener{
 			dao.RdaioSelectType(modelTable, "A");
 		}
 	}
-			
-	public static void main(String[] args) {
-		new MenuMain();
-	}
+		
 }
 
 

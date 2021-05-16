@@ -52,7 +52,8 @@ public class UpPage extends JFrame implements ActionListener {
 		checkUpdate.addActionListener(this);
 		
 		
-		setSize(250,280);
+		
+		setBounds(350,250,250,280);
 		setVisible(true);
 		cno.setText(no);
 		cname.setText(name);

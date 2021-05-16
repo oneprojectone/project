@@ -14,7 +14,7 @@ public class MenuDAO {
 	 ResultSet rs;
 	 Statement stmt;
 	 private String sql; 
-	
+	 static int count;
 	 
 	 public	MenuDAO() {
 		 try {
@@ -47,13 +47,13 @@ public class MenuDAO {
 				 rs.getInt("cprice")
 				 };
 				 model.addRow(data);
+				
 				}
 				
 			} catch (SQLException se) {
 				System.out.println("selectAll : " + se.toString());
-			} finally {
-			
 			}
+			
 	}
 	
 	 void SearchCname(DefaultTableModel model, String cName) {
@@ -69,8 +69,9 @@ public class MenuDAO {
 				Object[] data = { rs.getString("cno"),rs.getString("cname"),
 				 rs.getInt("cprice")
 				 };
-				 model.addRow(data);
+				 model.addRow(data); 
 			}
+			
 		} catch(Exception e) {
 			System.out.println("selectcname" + e);
 		}
@@ -88,11 +89,11 @@ public class MenuDAO {
 		}
 	}
 	
-	void DeleteMyInfo(String cname) {
+	void DeleteMyInfo(String cno) {
 		try {
-		sql = "delete from menu where cname = ?";
+		sql = "delete from menu where cno = ?";
 		pstmt = con.prepareStatement(sql);
-		pstmt.setString(1, cname);
+		pstmt.setString(1, cno);
 		pstmt.executeUpdate();
 		}catch(Exception e) { 
 			e.printStackTrace();
@@ -131,8 +132,21 @@ public class MenuDAO {
 			System.out.println("¾÷µ« ½ÇÆÐ" + e);
 		}
 	}
-
-	
+	int CountCNO(DefaultTableModel model, String cno) {
+		sql = "select * from menu where  cno like '%' || ? || '%' order by cno";
+		try {
+			count = 0;
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cno);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+					count ++;
+				}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 
 	
 

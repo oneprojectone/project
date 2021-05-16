@@ -2,39 +2,33 @@ package five;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class InsertPage extends JFrame implements ActionListener{
 	
-	 JTextField txt1;
+	 JComboBox<String> txt1;
 	 JTextField txt2;
 	 JTextField txt3;
 	 JButton insertBtn;
-	
+	 String ComboCNO[] = {"커피", "디저트", "기타"};
 	 MenuDAO dao = new MenuDAO();
-	
-	 
-	
-	InsertPage () {
+	 String sur1;
+	public InsertPage () {
 		JPanel jpaenl = new JPanel();
 		
-		jpaenl.add(new JLabel("상품 코드"));
-		jpaenl.add(txt1 = new JTextField(10));
-		jpaenl.add(new JLabel("상 품 명"));
+		jpaenl.add(new JLabel("상품 종류 :"));
+		jpaenl.add(txt1 = new JComboBox<String>(ComboCNO));
+		jpaenl.add(new JLabel("상 품 명 :"));
 		jpaenl.add(txt2 = new JTextField(10));
-		jpaenl.add(new JLabel("가 격"));
+		jpaenl.add(new JLabel("가 격 :"));
 		jpaenl.add(txt3 = new JTextField(10));
 		
 		JPanel JPaenlBtn = new JPanel();
@@ -45,29 +39,69 @@ public class InsertPage extends JFrame implements ActionListener{
 		insertBtn.addActionListener(this);
 		
 		
-		addWindowListener(new WindowAdapter() {
-			public void windowClosed(WindowEvent e) {
-				new MenuMain();
-			}
-		});
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(350,250,530,100);
+		setBounds(350,250,530,120);
 		setVisible(true);
 		
 	}
 	 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		if(e.getSource() == insertBtn) {
-			 String sur1 = txt1.getText().trim();
+			if(MenuMain.count[0] <10 || MenuMain.count[1] <10 || MenuMain.count[2] <10) {
+			if(txt1.getSelectedItem() == "커피") {
+				String CnoC = "C";
+				dao.CountCNO(MenuMain.modelTable,CnoC);
+				MenuMain.count[0] = MenuDAO.count;
+				 sur1 = "C0" + MenuMain.count[0];
+				
+			} else if(txt1.getSelectedItem() == "디저트") {
+				String CnoC = "D";
+				dao.CountCNO(MenuMain.modelTable,CnoC);
+				MenuMain.count[1] = MenuDAO.count;
+				 sur1 = "D0" + MenuMain.count[1];
+				
+			} else {
+				String CnoC = "A";
+				dao.CountCNO(MenuMain.modelTable,CnoC);
+				MenuMain.count[2] = MenuDAO.count;
+				 sur1 = "A0" + MenuMain.count[2];
+				 MenuMain.count[2]++;
+			}	
+		} else {
+			if(txt1.getSelectedItem() == "커피") {
+				String CnoC = "C";
+				dao.CountCNO(MenuMain.modelTable,CnoC);
+				MenuMain.count[0] = MenuDAO.count;
+				 sur1 = "C" + MenuMain.count[0];
+				 MenuMain.count[0]++;
+				
+			} else if(txt1.getSelectedItem() == "디저트") {
+				String CnoC = "D";
+				dao.CountCNO(MenuMain.modelTable,CnoC);
+				MenuMain.count[1] = MenuDAO.count;
+				sur1 = "D" + MenuMain.count[1];
+				 MenuMain.count[1]++;
+				
+			} else {
+				String CnoC = "A";
+				dao.CountCNO(MenuMain.modelTable,CnoC);
+				MenuMain.count[2] = MenuDAO.count;
+				 sur1 = "A" + MenuMain.count[2];
+				 MenuMain.count[2]++;
+			}
+		}
 			String sur2 = txt2.getText().trim();
 			Integer sur3 = Integer.parseInt(txt3.getText());
 			dao.InsertCname(sur1, sur2, sur3);
-			
+			dao.selectAll(MenuMain.modelTable);
 			JOptionPane.showMessageDialog(null, "추가 성공");
-			txt1.setText("");
+			
 			txt2.setText("");
 			txt3.setText("");
 		}
 	}
 }
+
