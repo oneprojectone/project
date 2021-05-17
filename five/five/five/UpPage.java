@@ -22,7 +22,8 @@ public class UpPage extends JFrame implements ActionListener {
 	JPanel panel,panel1;
 	JPanel n1,n2;
 	JTextField cno,cname,cprice,Ncno,Ncname,Ncprice;
-	
+	String sur5;
+	Integer sur6;
 	 MenuDAO dao = new MenuDAO();
 	 UpPage(String no, String name, int price) {
 		panel = new JPanel(new GridLayout(0,2));
@@ -70,15 +71,30 @@ public class UpPage extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == checkUpdate) {
 			
-			String sur1 = cno.getText();
-		
-			String sur4 = Ncno.getText();
-			String sur5 = Ncname.getText();
-			Integer sur6 = Integer.parseInt(Ncprice.getText());
+			
+			String sur1 = cno.getText(); 
+			
+			String sur4 = Ncno.getText(); 
+			
+			if(Ncname.getText().length() <= 0) {
+				sur5 = cname.getText();
+			}
+			else {
+				sur5 = Ncname.getText();
+			}
+			
+			if(Ncprice.getText().length() <= 0) {
+				sur6 = Integer.parseInt(cprice.getText()); 
+			}
+			else {
+				sur6 = Integer.parseInt(Ncprice.getText()); 
+			}
 			
 			dao.UpdateMyInfo(sur1,sur4,sur5,sur6);
 			JOptionPane.showMessageDialog(null, "수정 성공");
+			dao.selectAll(MenuMain.modelTable);
 			setVisible(false);
+			
 		}
 	}
 

@@ -116,7 +116,6 @@ public class MenuDAO {
 		pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, cno);
 		pstmt.executeUpdate();
-		
 		}catch(Exception e) { 
 			e.printStackTrace();
 		}finally {
@@ -160,7 +159,7 @@ public class MenuDAO {
 		sql= "UPDATE MENU "
 				+ "SET cno ='" + sur4 + "', cname = '"+ sur5 +"', cprice = " + sur6 
 				+ " WHERE cno ='" + sur1 + "'";
-		System.out.println(sql);
+		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.executeUpdate();
@@ -168,7 +167,7 @@ public class MenuDAO {
 			System.out.println("¾÷µ« ½ÇÆÐ" + e);
 		}finally {
 			try {
-				rs.close();
+				
 				pstmt.close();
 			} catch(SQLException se) {
 				System.out.println("´Ý±â ½ÇÆÐ" + se);
