@@ -26,14 +26,14 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import customer.CustomerDAO;
-import customer.CustomerVO;
+import dao.CustomerDAO;
+import dto.CustomerVO;
 
 public class CustomerView extends JPanel implements ActionListener, KeyListener {
 	 private JPanel panel;
 	     
 	String data[][] = new String [0][9];
-	String title[] = { "ì´ë¦„", "ID", "ë¹„ë°€ë²ˆí˜¸", "ì„±ë³„", "EMAIL", "ì „í™”ë²ˆí˜¸", "ì£¼ì†Œ", "ê³„ì¢Œë²ˆí˜¸", "ê°€ì…ë‚ ì§œ"};
+	String title[] = { "ÀÌ¸§", "ID", "ºñ¹Ğ¹øÈ£", "¼ºº°", "EMAIL", "ÀüÈ­¹øÈ£", "ÁÖ¼Ò", "°èÁÂ¹øÈ£", "°¡ÀÔ³¯Â¥"};
 	DefaultTableModel model = new DefaultTableModel(data, title) {
 		public boolean isCellEditable(int row, int col) {
 			return false;
@@ -76,10 +76,10 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 		tfCustDate = new JTextField(30); 		
 
 		tfCustNameSearch = new JTextField(10);
-		bCustListAll = new JButton("ì¡°íšŒ");
-	    //bCustNameSearch = new JButton("ê²€ìƒ‰");
-	    bCustModify = new JButton("ìˆ˜ì •");
-	    bCustDelete	= new JButton("ì‚­ì œ");
+		bCustListAll = new JButton("Á¶È¸");
+	    //bCustNameSearch = new JButton("°Ë»ö");
+	    bCustModify = new JButton("¼öÁ¤");
+	    bCustDelete	= new JButton("»èÁ¦");
 	    bCustListAll.setPreferredSize(new Dimension(20, 30));
 	    bCustModify.setPreferredSize(new Dimension(20, 30));
 	    bCustDelete.setPreferredSize(new Dimension(20, 30));
@@ -90,30 +90,32 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
     void addLayout(){
 	
 	JPanel pWest = new JPanel();
-	pWest.setBorder(new TitledBorder("íšŒì›ì •ë³´"));
+	pWest.setBorder(new TitledBorder("È¸¿øÁ¤º¸"));
 	
 	JPanel pWestNorth = new JPanel();
 	
 	JPanel pWestNorthUp	= new JPanel();
 	
-	pWestNorthUp.setLayout(new GridLayout(9,2,10,10));
-	pWestNorthUp.add(new JLabel("                              ì´                          ë¦„"));
+	//tfCustName.setFont(tfCustName.getFont().deriveFont(10.0f));
+	
+	pWestNorthUp.setLayout(new GridLayout(9,2));
+	pWestNorthUp.add(new JLabel("                              ÀÌ                          ¸§"));
 	pWestNorthUp.add(tfCustName);
 	pWestNorthUp.add(new JLabel("                              I                              D"));
 	pWestNorthUp.add(tfCustId);
-	pWestNorthUp.add(new JLabel("                              ë¹„      ë°€      ë²ˆ      í˜¸"));
+	pWestNorthUp.add(new JLabel("                              ºñ      ¹Ğ      ¹ø      È£"));
 	pWestNorthUp.add(tfCustPwd);
-	pWestNorthUp.add(new JLabel("                              ì„±                          ë³„"));
+	pWestNorthUp.add(new JLabel("                              ¼º                          º°"));
 	pWestNorthUp.add(tfCustGender);
-	pWestNorthUp.add(new JLabel("                              ì´           ë©”           ì¼"));
+	pWestNorthUp.add(new JLabel("                              ÀÌ           ¸Ş           ÀÏ"));
 	pWestNorthUp.add(tfCustEmail);
-	pWestNorthUp.add(new JLabel("                              ì „      í™”      ë²ˆ      í˜¸"));
+	pWestNorthUp.add(new JLabel("                              Àü      È­      ¹ø      È£"));
 	pWestNorthUp.add(tfCustTel);
-	pWestNorthUp.add(new JLabel("                              ì£¼                          ì†Œ"));
+	pWestNorthUp.add(new JLabel("                              ÁÖ                          ¼Ò"));
 	pWestNorthUp.add(tfCustAddr);
-	pWestNorthUp.add(new JLabel("                              ê³„      ì¢Œ      ë²ˆ      í˜¸"));
+	pWestNorthUp.add(new JLabel("                              °è      ÁÂ      ¹ø      È£"));
 	pWestNorthUp.add(tfCustAccount);
-	pWestNorthUp.add(new JLabel("                              ê°€      ì…      ë‚       ì§œ"));
+	pWestNorthUp.add(new JLabel("                              °¡      ÀÔ      ³¯      Â¥"));
 	pWestNorthUp.add(tfCustDate);
 	
 
@@ -142,7 +144,7 @@ public class CustomerView extends JPanel implements ActionListener, KeyListener 
 	
 	JPanel	pEast		= new JPanel();
 	JPanel	pEastNorth	= new JPanel();
-	pEastNorth.setBorder( new TitledBorder("íšŒì›ëª©ë¡"));
+	pEastNorth.setBorder( new TitledBorder("È¸¿ø¸ñ·Ï"));
 	
 	pEastNorth.setLayout( new BorderLayout() );
 	pEastNorth.add("Center", new JScrollPane(tableCustomer) );
@@ -238,7 +240,7 @@ public void actionPerformed( ActionEvent ev ){
 //	  	    
 //		}catch (Exception e) {
 //             JOptionPane.showMessageDialog
-//             (null, "íšŒì› ê²€ìƒ‰ ì‹¤íŒ¨ : " + e.getMessage());
+//             (null, "È¸¿ø °Ë»ö ½ÇÆĞ : " + e.getMessage());
 //		}
 //	}else 
 	if ( o == bCustListAll ) {
@@ -278,27 +280,27 @@ public void actionPerformed( ActionEvent ev ){
 
 	
 			dao.modifyCustomer(vo);
-			System.out.println("ìˆ˜ì • ì„±ê³µ");
+			System.out.println("¼öÁ¤ ¼º°ø");
 		
 		clearLayout();
 		
 	}else if ( o == bCustDelete ) {
 		
-		String id = tfCustId.getText();
+		String name = tfCustName.getText();
         try {
-        int result = JOptionPane.showConfirmDialog(null, "ì •ë§ë¡œ ì‚­ì œí•˜ì‹¤ê±°ì—ìš”?", "ì£¼ì˜", JOptionPane.YES_NO_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, "Á¤¸»·Î »èÁ¦ÇÏ½Ç°Å¿¡¿ä?", "ÁÖÀÇ", JOptionPane.YES_NO_OPTION);
         if(result == JOptionPane.CLOSED_OPTION) {
         	dao.ListAll(model);
         }
         else if(result == JOptionPane.YES_OPTION) {
-        	dao.deleteCustomer(id);
+        	dao.deleteCustomer(name);
         }
         else {
         	dao.ListAll(model);
         }
-        System.out.println("ì‚­ì œ ì„±ê³µ");
+        System.out.println("»èÁ¦ ¼º°ø");
         }catch(Exception e) {
-           JOptionPane.showMessageDialog(null, "ì‚­ì œ ì‹¤íŒ¨ : " + e.getMessage());
+           JOptionPane.showMessageDialog(null, "»èÁ¦ ½ÇÆĞ : " + e.getMessage());
 			
         }
 	}
@@ -307,7 +309,7 @@ public void actionPerformed( ActionEvent ev ){
 @Override
 public void keyTyped(KeyEvent e) {
 	String data[][] = new String [0][9];
-	String title[] = { "ì´ë¦„", "ID", "ë¹„ë°€ë²ˆí˜¸", "ì„±ë³„", "EMAIL", "ì „í™”ë²ˆí˜¸", "ì£¼ì†Œ", "ê³„ì¢Œë²ˆí˜¸", "ê°€ì…ë‚ ì§œ"};
+	String title[] = { "ÀÌ¸§", "ID", "ºñ¹Ğ¹øÈ£", "¼ºº°", "EMAIL", "ÀüÈ­¹øÈ£", "ÁÖ¼Ò", "°èÁÂ¹øÈ£", "°¡ÀÔ³¯Â¥"};
 	DefaultTableModel key = new DefaultTableModel(data, title) {
 		public boolean isCellEditable(int row, int col) {
 			return false;
@@ -331,7 +333,7 @@ public void keyTyped(KeyEvent e) {
            // rs = stmt.executeQuery(sql);
 	  	    
 		}catch (Exception ex) { 
-			//JOptionPane.showMessageDialog(null, "ê²€ìƒ‰ ì‹¤íŒ¨ : " + ex.getMessage());	
+			//JOptionPane.showMessageDialog(null, "°Ë»ö ½ÇÆĞ : " + ex.getMessage());	
 			ex.printStackTrace();}
 	}
 }
