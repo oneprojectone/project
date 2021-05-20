@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 public class Door extends JFrame {
 	
 	public Door() {
+		setTitle("ONE-Regist");
 		Regist regi= new Regist(this);
 		add(regi);
 		

@@ -1,8 +1,6 @@
 package cafeOne;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
@@ -20,9 +18,13 @@ public class CafeCustomer extends JFrame  {
 	HistoryMyView customerhistory;
 	
 	public CafeCustomer(String id) {
+		setTitle("ONE");
 		customerMy = new CustomerMyView(id);
 		customerMenu=new MenuMyView(id,customerMy);
-		customerhistory= new HistoryMyView(id);
+		customerhistory= new HistoryMyView(id,customerMy);
+		
+		Font font = new Font("MAKGEOLLI", Font.PLAIN, 30);
+		
 
 		JTabbedPane pane = new JTabbedPane();
 		
@@ -31,14 +33,17 @@ public class CafeCustomer extends JFrame  {
 		pane.addTab("내 주문 내역", customerhistory );
 		
 		pane.setSelectedIndex(0);	
+		Color color = new Color(129,88,84);
+		//pane.setBackground(color);
 		
-		getContentPane().add("Center", pane).setBackground(Color.red);
+		getContentPane().add("Center", pane).setBackground(color);
 	
 		setSize(800,800);
 		setVisible(true);
 		setResizable(true);
-		Color b = new Color(255,223,176);  
-		pane.setBackground(b);
+		
+		pane.setFont(font);
+		
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		
 	}

@@ -1,22 +1,18 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import cafeOne.Cafe;
-import cafeOne.CafeCustomer;
 import dbConnect.Singleton;
 import dto.CouponVO;
 import dto.CustomerVO;
-import index.Login;
-import loginview.Regist;
 import view.CustomerMyView;
 
 public class CustomerDAO {
@@ -98,35 +94,40 @@ public class CustomerDAO {
          return model;
 	}	
 	
-	
+	//5-18 12:50 수정
 	public void modifyCustomer(CustomerVO cust) {
-		
-		try {
-	connectDB();
-		String sql = "UPDATE customer SET pname = ?, "
-				+ "ppwd = ?, pemail = ?, ptel = ?, paddr = ? "
-				+ "WHERE pid = ?";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, cust.getPname());
-		ps.setString(2, cust.getPpwd());
-		ps.setString(3, cust.getPemail());
-		ps.setString(4, cust.getPtel());
-		ps.setString(5, cust.getPaddr());
-		ps.setString(6, cust.getPid());
-		ps.executeUpdate();
-		ps.close();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	      
+	      try {
+	   connectDB();
+	      String sql = "UPDATE customer SET pname = ?, "
+	            + "ppwd = ?, pemail = ?, ptel = ?, paddr = ? "
+	            + "WHERE pid = ?";
+	      PreparedStatement ps = con.prepareStatement(sql);
+	      ps.setString(1, cust.getPname());
+	      ps.setString(2, cust.getPpwd());
+	      ps.setString(3, cust.getPemail());
+	      ps.setString(4, cust.getPtel());
+	      ps.setString(5, cust.getPaddr());
+	      ps.setString(6, cust.getPid());
+	      ps.executeUpdate();
+	      ps.close();
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	   }
 	
-	public void deleteCustomer(String name) throws Exception{
+	public void deleteCustomer(String id) throws Exception{
 		connectDB();
-		String sql = "delete from customer where pname = ?";
+		String sql = "delete from customer where pid = ?";
 		pstmt = con.prepareStatement(sql);
-		pstmt.setString(1, name);
+		pstmt.setString(1, id);
 		pstmt.executeUpdate();
 		pstmt.close();
+		
+		
+		 sql="UPDATE HISTORY SET HID = '탈퇴한회원' WHERE HID = '"+id+"'";
+		 pstmt=con.prepareStatement(sql);
+		 pstmt.executeUpdate();
 		
 	}
 	public CustomerVO selectByPk(String id) {
@@ -164,13 +165,13 @@ public class CustomerDAO {
 	
 	public void showMyInfo(String id,CustomerVO dto){
 		try {
-			//id="lily93";
+			
 			connectDB();
 			sql="SELECT * FROM CUSTOMER WHERE PID=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs=pstmt.executeQuery();
-			//ArrayList list = new ArrayList();
+		
 			while(rs.next()) {
 				dto.setPname(rs.getString("PNAME"));
 				dto.setPgender(rs.getString("PGENDER"));
@@ -182,7 +183,7 @@ public class CustomerDAO {
 				dto.setPaccount(rs.getString("PACCOUNT"));
 				dto.setPdate(rs.getString("PDATE"));
 			
-				//list.add(dto);
+			
 			}
 			
 		}catch(Exception e) {
@@ -238,6 +239,11 @@ public class CustomerDAO {
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				pstmt.executeUpdate();
+				
+				 sql="UPDATE HISTORY SET HID = '탈퇴한회원' WHERE HID = '"+id+"'";
+				 pstmt=con.prepareStatement(sql);
+				 pstmt.executeUpdate();
+				
 				 }catch(Exception e) {
 					 e.printStackTrace();
 				 }finally {
@@ -336,7 +342,7 @@ public class CustomerDAO {
 			}
 	 }
 	 
-	 public void countHistory(CustomerMyView myview) {
+	 public int countHistory(CustomerMyView myview) {
 		 int count=0;
 		 try {
 		 sql="SELECT COUNT(*) FROM HISTORY WHERE HID= '"+myview.myid+"'";
@@ -374,31 +380,114 @@ public class CustomerDAO {
 			 e.printStackTrace();
 		 }
 		 
+		 return count;
+		 
 	 }
-//	 public void findMyRegistDate(String Id) {
-//		 try {
-//				connectDB();
-//				
-//				String sql = "SELECT pdate FROM customer where pid = '"+Id+"'";
-//				
-//				Statement stmt = con.createStatement();
-//				
-//				ResultSet rs = stmt.executeQuery(sql);
-//				if( rs.next() )
-//				{
-//					vo.setPname(rs.getString("PNAME")); 
-//		            vo.setPid(rs.getString("PID")); 
-//		            vo.setPpwd(rs.getString("PPWD")); 
-//		            vo.setPgender(rs.getString("PGENDER")); 
-//		            vo.setPemail(rs.getString("PEMAIL")); 
-//		            vo.setPtel(rs.getString("PTEL"));
-//		            vo.setPaddr(rs.getString("PADDR"));
-//		            vo.setPaccount(rs.getString("PACCOUNT"));
-//		            vo.setPdate(rs.getString("PDATE"));
-//				}
-//				}catch(Exception e) {
-//					e.printStackTrace();
-//				}
-//				return vo;
-//	 	}
+//21.05.19 스탬프 부분 구현	추가(김수정) 
+	 public int checkStamp(CustomerMyView myview) {
+		 int count=0;
+		 int count_use5=0;
+		 int count_use10=0;
+		 int count_5=0;
+		 int count_10=0;
+		 try {
+			 sql="SELECT COUNT(*) FROM HISTORY WHERE HID= '"+myview.myid+"'";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+				count=rs.getInt("COUNT(*)");}
+				
+				 sql="SELECT BUTTON_5_COUNT, BUTTON_10_COUNT FROM COUPON WHERE PID= '"+myview.myid+"'";
+					pstmt=con.prepareStatement(sql);
+					rs=pstmt.executeQuery();
+					if(rs.next()) {
+						count_use5=rs.getInt("BUTTON_5_COUNT");
+						count_use10=rs.getInt("BUTTON_10_COUNT");
+						}
+										
+				if(count>0) {
+					
+					count_5=(count/5)-(count/10)-(count_use5);
+					System.out.println(count_5);
+					if(count_5>=1) {
+						myview.buttoncoupon_5.setEnabled(true);
+					}
+					
+					count_10=(count/10)-(count_use10);
+					System.out.println(count_10);
+					if(count_10>=1) {
+						myview.buttoncoupon_10.setEnabled(true);
+					}
+					if(count_5==0) {
+						myview.buttoncoupon_5.setEnabled(false);
+					}
+					if(count_10==0) {
+						myview.buttoncoupon_10.setEnabled(false);
+					}
+				}
+				
+				myview.lab16.setText("남은 아메리카노 쿠폰 : "+count_5);
+				myview.lab17.setText("남은 원하는 음료 쿠폰 : "+count_10);
+				
+		 }catch(Exception e) {
+			 e.printStackTrace();
+		 }
+		 return count;
+	 }
+	 
+	 public void useCoupon5(CustomerMyView myview) {
+		 int count_5=0;
+		 
+		   try {
+			   connectDB();
+			   
+			   sql="SELECT BUTTON_5_COUNT FROM COUPON WHERE PID= '"+myview.myid+"'";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					count_5=rs.getInt("BUTTON_5_COUNT");
+					}
+				System.out.println(count_5);
+				
+			   sql = "UPDATE COUPON SET BUTTON_5_COUNT = ? "
+			            + "WHERE PID = ?";
+			      PreparedStatement ps = con.prepareStatement(sql);
+			      count_5++;
+			      ps.setInt(1, count_5);
+			      ps.setString(2, myview.myid);
+			      ps.executeUpdate();
+			      ps.close();
+			      }catch (Exception e) {
+			         e.printStackTrace();
+			      }
+	 }
+
+
+	public void useCoupon10(CustomerMyView myview) {
+		 int count_10=0;
+		   try {
+			   connectDB();
+			   
+			   sql="SELECT BUTTON_10_COUNT FROM COUPON WHERE PID= '"+myview.myid+"'";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					count_10=rs.getInt("BUTTON_10_COUNT");
+					}
+				
+			   sql = "UPDATE COUPON SET BUTTON_10_COUNT = ? "
+			            + "WHERE PID = ?";
+			      PreparedStatement ps = con.prepareStatement(sql);
+			      count_10++;
+			      ps.setInt(1, count_10);
+			      ps.setString(2, myview.myid);
+			      ps.executeUpdate();
+			      ps.close();
+			      }catch (Exception e) {
+			         e.printStackTrace();
+			      }
+	  }
+	
+	 
+	 
 }

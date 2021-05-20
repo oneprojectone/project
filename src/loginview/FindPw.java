@@ -25,6 +25,7 @@ public class FindPw extends JFrame implements ActionListener{
 	JButton ok;
 	CustomerDAO dao = new CustomerDAO();
 	LoginDAO daolg = new LoginDAO();
+	JLabel lab1, lab2;
 	
 	
 	public static void main(String[] args) {
@@ -32,7 +33,8 @@ public class FindPw extends JFrame implements ActionListener{
 	}
 	
 	public FindPw() {
-		
+		Font font = new Font("MAKGEOLLI", Font.PLAIN, 20);
+		setTitle("ONE-비밀번호 찾기");
 		setResizable(true);
 		
 		setLayout( new GridBagLayout() );
@@ -52,6 +54,18 @@ public class FindPw extends JFrame implements ActionListener{
 		tf_id = new TextField(10);
 		tf_tel = new TextField(10);
 		empty= new JLabel("     ");
+		lab1 = new JLabel("ID를 입력하세요!");
+		lab2 = new JLabel("전화번호를 입력하세요!");
+		ok=new JButton("인증");
+		lab1.setFont(font);
+		lab2.setFont(font);
+		lid.setFont(font);
+		ltel.setFont(font);
+		mes.setFont(font);
+		adem.setFont(font);
+		message.setFont(font);
+		message2.setFont(font);
+		ok.setFont(font);
 	
 
 		pan1= new JPanel();
@@ -61,7 +75,16 @@ public class FindPw extends JFrame implements ActionListener{
 		pan5 = new JPanel();
 		pan6= new JPanel();
 		
-		ok=new JButton("인증");
+		Color b = new Color(248,234,221);
+		pan1.setBackground(b);
+		pan2.setBackground(b);
+		pan3.setBackground(b);
+		pan4.setBackground(b);
+		pan5.setBackground(b);
+		pan6.setBackground(b);
+		setBackground(b);
+		
+		
 		ok.addActionListener(this);
 
 		pan2.setLayout( new GridBagLayout() );
@@ -107,13 +130,7 @@ public class FindPw extends JFrame implements ActionListener{
 		pan1.add(pan2);
 		pan1.add(pan5);
 		pan1.add(pan4);
-		Color b = new Color(255,223,176);  
-		pan1.setBackground(b);
-		pan2.setBackground(b);    
-		pan3.setBackground(b);    
-		pan4.setBackground(b);    
-		pan5.setBackground(b);   
-		pan6.setBackground(b);   
+		  
 		
 		add(pan1);
 		
@@ -134,11 +151,11 @@ public class FindPw extends JFrame implements ActionListener{
 			id = tf_id.getText();
 			tel=tf_tel.getText();
 			if(id.length()==0) {
-				JOptionPane.showMessageDialog(null, "아이디를 입력하세요!");
+				JOptionPane.showMessageDialog(null, lab1);
 				return;
 			}
 			else if(tel.length()==0) {
-				JOptionPane.showMessageDialog(null, "전화번호를 입력하세요!");
+				JOptionPane.showMessageDialog(null, lab2);
 				return;
 			}
 			count = daolg.findMyPwd(id,tel);

@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import view.MenuView;
 import dao.MenuDAO;
 
 public class InsertPage extends JFrame implements ActionListener{
@@ -25,29 +25,42 @@ public class InsertPage extends JFrame implements ActionListener{
 	 MenuDAO dao = new MenuDAO();
 	 String sur1;
 	 DefaultTableModel model = null;
+	 JLabel lab1, lab2, lab3, lab4;
 	public InsertPage (DefaultTableModel model) {
+		Font font = new Font("MAKGEOLLI", Font.PLAIN, 20);
+
 		this.model = model;
 		JPanel jpaenl = new JPanel();
 		
-		jpaenl.add(new JLabel("상품 종류 :"));
+		lab1 = new JLabel("상품 종류 :");
+		lab1.setFont(font);
+		jpaenl.add(lab1);
 		jpaenl.add(txt1 = new JComboBox<String>(ComboCNO));
-		jpaenl.add(new JLabel("상 품 명 :"));
+		lab2 = new JLabel("상품 명 :");
+		lab2.setFont(font);
+		jpaenl.add(lab2);
 		jpaenl.add(txt2 = new JTextField(10));
-		jpaenl.add(new JLabel("가 격 :"));
+		lab3 = new JLabel("가격 :");
+		lab3.setFont(font);
+		jpaenl.add(lab3);
 		jpaenl.add(txt3 = new JTextField(10));
+
 		
 		JPanel JPaenlBtn = new JPanel();
 		JPaenlBtn.add(insertBtn = new JButton("추가"));
+		insertBtn.setFont(font);
 		add(JPaenlBtn,"South");
 		add(jpaenl);
+
 		
 		insertBtn.addActionListener(this);
 		
 		
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(350,250,530,120);
+		setBounds(100,800,530,120);
 		setVisible(true);
+		
 		
 	}
 	 
@@ -81,16 +94,30 @@ public class InsertPage extends JFrame implements ActionListener{
 				} else 
 					sur1 = "A" + count;
 			}
-		}
-			String sur2 = txt2.getText().trim();
-			Integer sur3 = Integer.parseInt(txt3.getText());
-			dao.insertMenu(sur1, sur2, sur3);
-			dao.showMenuAll(model);
-			JOptionPane.showMessageDialog(null, "추가 성공");
-			
-			txt2.setText("");
-			txt3.setText("");
-		}
+				if(txt2.getText().equals("") || txt3.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "값을 입력");
+							txt2.setText("");
+							txt3.setText("");
+					} else  {
+						String sur2 = txt2.getText().trim();
+						Integer sur3 = Integer.parseInt(txt3.getText());
+				
+						if(sur3 > 0) {
+							dao.insertMenu(sur1, sur2, sur3);
+							dao.showMenuAll(model);
+							JOptionPane.showMessageDialog(null, "추가 성공");
+						
+							txt2.setText("");
+							txt3.setText("");	
+						}else {
+							JOptionPane.showMessageDialog(null, "잘못된 값");
+							txt2.setText("");
+							txt3.setText("");
+							}
+						}
+		
 	}
+}
+}
 
 

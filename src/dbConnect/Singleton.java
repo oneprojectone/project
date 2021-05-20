@@ -10,8 +10,8 @@ import java.sql.Statement;
 public class Singleton {
 	static Connection con;
 	String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
-	String user = "one";
-	String pass = "cafe";
+	String user = "lion";
+	String pass = "1234";
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	
 

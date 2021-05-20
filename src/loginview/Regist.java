@@ -33,7 +33,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 {
 	
 
-	public JLabel lab1,lab2,lab3,lab4,lab5,lab6,lab7,lab8,lab9,lab10,lab11,lab12,lab13,lab14,lab15,lab16,lab17,lab18,lab19,lab20;
+	public JLabel lab1,lab2,lab3,lab4,lab5,lab6,lab7,lab8,lab9,lab10,lab11,lab12,lab13,lab14,lab15,lab16,lab17,lab18,lab19,lab20, lab21, lab22, lab23, lab24, lab25, lab26, lab27,lab28,lab29;
 	public ImageIcon image;
 	public JTextField tf1,tf2,tf3,tf4,tf5,tf6,tf7,tf8,tf9;
 	public JPanel pan1,pan2,pan3,pan4,pan5,pan6,pan7, pan8, pan9, pan10, pan11,pan12,pan13,pan14,pan15,pan16,pan17;
@@ -52,6 +52,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 	String id_doublecheck;
 	
 	Regist(Door d) {
+		Font font = new Font("MAKGEOLLI", Font.PLAIN, 20);
 		door=d;
 		setLayout(new FlowLayout());
 		pan1=new JPanel();
@@ -71,7 +72,49 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 		pan15=new JPanel();
 		pan16=new JPanel();
 		pan17=new JPanel();
-		Font font = new Font("고딕체", Font.BOLD, 12);
+		
+		Color b = new Color(248,234,221);
+		pan1.setBackground(b);
+		pan2.setBackground(b);
+		pan3.setBackground(b);
+		pan4.setBackground(b);
+		pan5.setBackground(b);
+		pan6.setBackground(b);
+		pan7.setBackground(b);
+		pan8.setBackground(b);
+		pan9.setBackground(b);
+		pan10.setBackground(b);
+		pan11.setBackground(b);
+		pan12.setBackground(b);
+		pan13.setBackground(b);
+		pan14.setBackground(b);
+		pan15.setBackground(b);
+		pan16.setBackground(b);
+		pan17.setBackground(b);
+		setBackground(b);
+		lab20 = new JLabel("이름을 입력해주세요!"); 
+		lab21 = new JLabel("ID를 입력해주세요!");
+		lab22 = new JLabel("비밀번호를 입력해주세요!");
+		lab23 = new JLabel("계좌번호를 입력해주세요!");
+		lab24 = new JLabel("은행을 선택해주세요!");
+		lab25 = new JLabel("ID 중복확인을 해주세요!");
+		lab26 = new JLabel("비밀번호를 확인해주세요!");
+		lab27 = new JLabel("회원가입이 완료되었습니다!");
+		lab28 = new JLabel("주소는 두 글자로 입력해주세요!(ex.서울, 경기)");
+		lab29 = new JLabel("주소를 입력하세요!");
+		
+		lab20.setFont(font);
+		lab21.setFont(font);
+		lab22.setFont(font);
+		lab23.setFont(font);
+		lab24.setFont(font);
+		lab25.setFont(font);
+		lab26.setFont(font);
+		lab27.setFont(font);
+		lab28.setFont(font);
+		lab29.setFont(font);
+		
+		
 
 		
 		String	BankText[]= {"선택", "KOSMO", "HAPPY" , "SINNAH", "GMOD" };
@@ -91,6 +134,8 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 
 		mf.add(male);
 		mf.add(female);
+		male.setBackground(b);
+		female.setBackground(b);
 		
 		pan1.setLayout( new GridBagLayout() );
 		GridBagConstraints	cba = new GridBagConstraints();
@@ -222,7 +267,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 		cbq.gridx=0; 		cbq.gridy=3;
 		pan17.add(pan4, cbq);
 		
-		lab2=new JLabel("이	름");
+		lab2=new JLabel("이름");
 		cbc.gridx	=0;	 			cbc.gridy	=  0;
 		pan3.add(lab2,cbc);
 		lab3=new JLabel("                         ");
@@ -234,7 +279,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 		cbd.gridx	=1;	 			cbd.gridy	=  0;
 		pan4.add(female,cbd);
 		
-		lab4=new JLabel("I             D        ");
+		lab4=new JLabel("ID");
 		cbf.gridx=0; 		cbf.gridy=0;
 		pan6.add(lab4, cbf);
 		
@@ -250,7 +295,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 		cbf.gridx=3; 		cbf.gridy=0;
 		pan6.add(button1, cbf);
 		
-		lab5=new JLabel("비   밀   번   호    ");
+		lab5=new JLabel("비밀번호");
 		cbg.gridx=0; 		cbg.gridy=0;
 		pan7.add(lab5, cbg);
 		
@@ -262,7 +307,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 		cbg.gridx=2; 		cbg.gridy=0;
 		pan7.add(lab8, cbg);
  
-		lab6=new JLabel("비밀번호확인    ");
+		lab6=new JLabel("비밀번호확인");
 		cbh.gridx=0; 		cbh.gridy=0;
 		pan8.add(lab6, cbh);
 		
@@ -278,7 +323,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 		cbh.gridx=1; 		cbh.gridy=1;
 		pan8.add(lab7, cbh);
 		
-		lab10=new JLabel("    주                 소     ");
+		lab10=new JLabel("주소");
 	       cbk.gridx=0;   cbk.gridy=0;
 	       pan10.add(lab10,cbk);
 	       tf5=new JTextField(15);
@@ -289,7 +334,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 	       pan10.add(lab18, cbk);
 
 	      
-	      lab11=new JLabel("    전   화   번   호    ");
+	      lab11=new JLabel("전화번호");
 	       cbl.gridx=0;   cbl.gridy=0;   
 	       pan11.add(lab11,cbl);
 	       tf6=new JTextField(15);
@@ -301,7 +346,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 
 	      
 	      
-	      lab12=new JLabel("      E   -   M  A  I  L     ");
+	      lab12=new JLabel("E - MAIL");
 	      cbo.gridx=1;   cbo.gridy=0;
 	      pan14.add(lab12,cbo);
 	      tf7=new JTextField(6);
@@ -318,7 +363,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 	      cbo.gridx=2;   cbo.gridy=0;
 	      pan14.add(pan12,cbo);
 
-	      lab14=new JLabel("   계   좌   번   호     ");
+	      lab14=new JLabel("계좌번호");
 	         cbp.gridx=0;   cbp.gridy=0;
 	         pan15.add(lab14,cbp);
 	         cbn.gridx=0;   cbn.gridy=0;
@@ -341,13 +386,28 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 	      lab15=new JLabel("      ");
 	      pan16.add(lab15,cbq);
 	      
-	      button3 = new JButton("취     소");
+	      button3 = new JButton("취소");
 	      cbq.gridx=3;   cbq.gridy=1;
 	      pan16.add(button3,cbq);
 	      
 	      add(pan1);
-	
 	      
+	
+	      male.setFont(font);
+	  	female.setFont(font);
+	  	lab2.setFont(font);
+	  	lab4.setFont(font);
+	  	button1.setFont(font);
+	  	lab5.setFont(font);
+	  	lab6.setFont(font);
+	  	lab7.setFont(font);
+	  	lab10.setFont(font);
+	  	lab11.setFont(font);
+	  	lab12.setFont(font);
+	  	lab14.setFont(font);
+	  	button2.setFont(font);
+	  	button3.setFont(font);
+	  	
 	      this.setLayout(new GridLayout(1,1));
 	      
 	     button1.addActionListener(this);
@@ -368,6 +428,7 @@ public class Regist extends JPanel implements ActionListener,ItemListener, KeyLi
 	
 	
 public void actionPerformed(ActionEvent ev) {
+	Font font = new Font("MAKGEOLLI", Font.PLAIN, 20);
 	Object o = ev.getSource();
 	
 	
@@ -383,38 +444,50 @@ public void actionPerformed(ActionEvent ev) {
 	else if ( o == button2 ) {
 		id_doublecheck=tf2.getText().trim();
 		
+
+		
 		if(!id_doublecheck.equals(id)) {
 			count=0;
 		}
 		
 		if(tf1.getText().length()==0) {
-			JOptionPane.showMessageDialog(this, "이름을 입력해주세요!");
+			JOptionPane.showMessageDialog(this, lab20);
 			return;
 		}
 		if(id_doublecheck.length()==0) {
-			JOptionPane.showMessageDialog(this, "ID를 입력해주세요!");
+			JOptionPane.showMessageDialog(this, lab21);
 			return;
 		}
 		if(tf3.getText().length()==0) {
-			JOptionPane.showMessageDialog(this, "비밀번호를 입력해주세요!");
+			JOptionPane.showMessageDialog(this, lab22);
+			return;
+		}
+		
+		if((tf5.getText().trim().length()==0)) {
+			JOptionPane.showMessageDialog(this,lab29 );
+			return;
+		}
+		
+		if(!(tf5.getText().trim().length()==2)) {
+			JOptionPane.showMessageDialog(this,lab28 );
 			return;
 		}
 		
 		if(tf9.getText().length()==0) {
-			JOptionPane.showMessageDialog(this, "계좌번호를 입력해주세요!");
+			JOptionPane.showMessageDialog(this, lab23);
 			return;
 		}
 		if(bank.getSelectedItem().equals("선택")) {
-			JOptionPane.showMessageDialog(this, "은행을 선택해주세요!");
+			JOptionPane.showMessageDialog(this, lab24);
 			return;
 		}
 		if(count<1) {
 			System.out.println(count);
-			JOptionPane.showMessageDialog(this, "ID 중복확인을 해주세요!");
+			JOptionPane.showMessageDialog(this, lab25);
 			return;
 		}
 		if(!tf3.getText().trim().equals(tf4.getText().trim())) {
-			JOptionPane.showMessageDialog(this, "비밀번호를 확인해주세요!");
+			JOptionPane.showMessageDialog(this, lab26);
 			tf3.setText("");
 			tf4.setText("");
 			tf3.requestFocus();
@@ -422,12 +495,12 @@ public void actionPerformed(ActionEvent ev) {
 		}
 		
 		try {
-			vo.setPid(id_doublecheck);
-			vo.setPname(tf1.getText());
-			vo.setPpwd(tf3.getText());
-			vo.setPtel(tf6.getText());
-			vo.setPemail(tf7.getText()+lab13.getText()+tf8.getText());
-			vo.setPaddr(tf5.getText());
+			vo.setPid(id_doublecheck.trim());
+			vo.setPname(tf1.getText().trim());
+			vo.setPpwd(tf3.getText().trim());
+			vo.setPtel(tf6.getText().trim());
+			vo.setPemail(tf7.getText().trim()+lab13.getText().trim()+tf8.getText().trim());
+			vo.setPaddr(tf5.getText().trim());
 			String gender=null;
 			if(male.isSelected()) {
 				gender = "M";
@@ -436,9 +509,9 @@ public void actionPerformed(ActionEvent ev) {
 				gender="F";
 			}
 			vo.setPgender(gender);
-			vo.setPaccount((String)bank.getSelectedItem()+" "+tf9.getText());
+			vo.setPaccount((String)bank.getSelectedItem()+" "+tf9.getText().trim());
 			daolg.regist(vo);		
-			JOptionPane.showMessageDialog(this, "회원가입이 완료되었습니다!");
+			JOptionPane.showMessageDialog(this, lab27);
 			door.setVisible(false);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -458,7 +531,14 @@ public void actionPerformed(ActionEvent ev) {
 	         lab1.setIcon(imagef);
 	      }
 	   }
-
+	lab20.setFont(font);
+  	lab21.setFont(font);
+  	lab22.setFont(font);
+  	lab23.setFont(font);
+  	lab24.setFont(font);
+  	lab25.setFont(font);
+  	lab26.setFont(font);
+  	lab27.setFont(font);
 }
 
 @Override

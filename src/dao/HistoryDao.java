@@ -55,18 +55,22 @@ public class HistoryDao {
 			}
 		}
    
-   
-   public void init(HistoryView mg ) {
-      mg.txtNo.setText("");
-      mg.txtId.setText("");
-      mg.comboBox.setSelectedItem("선택해주세요");
-      mg.rbtnSize_m.setSelected(false);
-      mg.rbtnSize_l.setSelected(false);
-      mg.rbtnOption_h.setSelected(false);
-      mg.rbtnOption_i.setSelected(false);
-      mg.txtPrice.setText("");
-      mg.txtDate.setText("");
-   
+//  init(HistoryView mg) 메소드 수정  ///////////////////////////////////////////////////
+   public void init(HistoryView mg) {
+	   	mg.txtNo.setText("");
+		mg.txtNo.setEditable(false);
+		mg.txtId.setText("");
+		mg.txtId.setEditable(false);
+		mg.comboBox.setSelectedItem("선택해주세요");
+		mg.comboBox.setEnabled(false);
+		mg.rbtnSize_m.setEnabled(false);
+		mg.rbtnSize_l.setEnabled(false);
+		mg.rbtnOption_h.setEnabled(false);
+		mg.rbtnOption_i.setEnabled(false);
+		mg.txtPrice.setText("");
+		mg.txtPrice.setEditable(false);
+		mg.txtDate.setText("");
+		mg.txtDate.setEditable(false);
    }
    
    
@@ -78,44 +82,64 @@ public class HistoryDao {
 		or.txt5.setText("");
 	}
    
+
+	public HistoryVO selectByPk(Integer Num) throws Exception{
+		   
+	       String sql = "select menu.cno, history.hno, history.hid, history.hmenu, history.hsize, history.hoption, menu.cprice, history.hdate, "
+	    		   			+ "case hsize " 
+// l -> Large 수정
+	    		   			+ "when 'Large' then cprice + 500 " 
+	    		   			+ "else cprice "
+	    		   			+ "end as hprice "
+	    		   			+ "from history, menu where history.hmenu IN (menu.cname) and history.hno = " + Num;
+	    	
+	      
+	       stmt = con.createStatement();
+	       rs = stmt.executeQuery(sql);
+	       if( rs.next() )
+	       {
+	          dto.sethNo(rs.getString("hno"));
+	          dto.sethMenu(rs.getString("hmenu"));
+	          dto.sethID(rs.getString("hid"));
+	          
+	          String option = rs.getString("hoption");
+	          
+	          if (option == null) { 
+	        	  dto.sethOption(null);
+
+	          }
+	          else {
+	        	  dto.sethOption(rs.getString("hoption"));
+	          }
+	          
+	          String size = rs.getString("hsize");
+	          if(size == null) {
+	        	  dto.sethSize(null);
+	          }
+	          else {
+	        	  dto.sethSize(rs.getString("hsize"));
+	          }
+	          
+	          dto.sethPrice(rs.getString("hprice"));
+	          dto.sethDate(rs.getString("hdate"));
+
+	       }
+	       
+	       System.out.println("3" + dto.gethOption());
+	       System.out.println("4" + dto.gethMenu());
+	       rs.close();
+	       stmt.close();
+	       
+	       return dto;
+	    }
    
-   public HistoryVO selectByPk(Integer Num,String cnumber) throws Exception{
-   
-          String sql = "select menu.cno, history.hno, history.hid, history.hmenu, history.hsize, history.hoption, menu.cprice, history.hdate, "
-                         + "case hsize " 
-                         + "when 'l' then cprice + 500 " 
-                         + "else cprice "
-                         + "end as hprice "
-                         + "from history, menu where history.hmenu IN (menu.cname) and history.hno = " + Num;
-          
-         
-          stmt = con.createStatement();
-          rs = stmt.executeQuery(sql);
-          if( rs.next() )
-          {
-            System.out.println(rs.getString("CNO")); 
-            cnumber=rs.getString("cno");
-            System.out.println(cnumber);
-             dto.sethNo(rs.getString("hno"));
-             dto.sethMenu(rs.getString("hmenu"));
-             dto.sethID(rs.getString("hid"));
-             dto.sethOption(rs.getString("hoption"));
-             dto.sethSize(rs.getString("hsize"));
-             dto.sethPrice(rs.getString("hprice"));
-             dto.sethDate(rs.getString("hdate"));
-             System.out.println("테스트");
-          }
-          
-          rs.close();
-          stmt.close();
-          return dto;
-       }
-   
-   public HistoryVO selectByPk(int Num) throws Exception{
+
+   public HistoryVO selectByMyPk(int Num) throws Exception{
 	   
 	   String sql = "select menu.cno, history.hno, history.hid, history.hmenu, history.hsize, history.hoption, menu.cprice, history.hdate, "
                + "case hsize " 
-               + "when 'l' then cprice + 500 " 
+// l -> Large 수정
+               + "when 'Large' then cprice + 500 " 
                + "else cprice "
                + "end as hprice "
                + "from history, menu where history.hmenu IN (menu.cname) and history.hno = " + Num;
@@ -149,12 +173,15 @@ public class HistoryDao {
 		try {
 			String sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice ,history.hdate, " 
 					              + "case hsize " 
-					              + "when 'l' then cprice + 500 "  
+// l -> Large 수정
+					              + "when 'Large' then cprice + 500 "  
 					              + "else cprice " 
 					              + "end as hprice " 
 					              + "from history, menu where history.hmenu IN (menu.cname) "
 					              + "order by hno";
-			pstmt = con.prepareStatement(sql);
+
+			
+			pstmt=con.prepareStatement(sql);
 			rs = pstmt.executeQuery(); 
 			
 			model.setRowCount(0);
@@ -182,12 +209,10 @@ public class HistoryDao {
 	
 				
 	} catch (Exception e) { System.out.println("전체 검색 실패"); 
+	e.printStackTrace();
 	} 
-		finally {
-		try { rs.close(); }
-		catch (SQLException e) { e.printStackTrace(); }
 		
-		}
+		
 		return temp;
 		
 	}
@@ -199,14 +224,21 @@ public class HistoryDao {
    public void CusAllview(DefaultTableModel model, String id) {
 
 		try {
-			String sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice ,history.hdate, "  
-					               + "case hsize "  
-					               + "when 'l' then cprice " 
-					               + "else cprice " 
-					               + "end as hprice " 
-					               + "from history, menu where history.hmenu IN (menu.cname) and hid = ?";
+			//탈퇴한 회원이 내역이 내 내역에 뜨지 않도록 수정(21.05.19) 김수정
+			String sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice ,history.hdate, " 
+		+"case hsize " 
+		+"when 'Large' then cprice +500 "
+		+"else cprice " 
+		+"end as hprice " 
+		+"from history, menu "
+		+"where history.hdate >= (select pdate from customer where pid = ?) "
+		+"and history.hmenu in (menu.cname) "
+		+"and hid = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
+			 pstmt.setString(1, id);
+			 pstmt.setString(2, id);
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			
 
@@ -236,7 +268,7 @@ public class HistoryDao {
 
 	
 
-
+// mouseview 수정
    public void mouseview(SelectFrame sfr) {
 		
 		MouseListener mm = new MouseAdapter(){
@@ -244,7 +276,8 @@ public class HistoryDao {
 	        	
 	        	sfr.txtId.setEditable(false);
 	        	sfr.comboBox.setEditable(false);
-	        	sfr.txtDate.setEditable(false); 
+	        	sfr.txtDate.setEditable(false);
+	        	sfr.txtDate2.setEditable(false);
 	        	
 	        	
 	        	if(e.getSource() == sfr.txtId) {
@@ -252,17 +285,20 @@ public class HistoryDao {
 	        		sfr.comboBox.setSelectedItem("선택해주세요");
 	        		sfr.comboBox.setEnabled(false);
 	        		sfr.txtDate.setText("");
+	        		sfr.txtDate2.setText("");
 	        		
 	        	} else if(e.getSource() == sfr.comboBox) {
 	        		sfr.txtId.setText("");
 	        		sfr.comboBox.setEnabled(true);
 	        		sfr.txtDate.setText("");
+	        		sfr.txtDate2.setText("");
 	        		
 	        	} else if(e.getSource() == sfr.txtDate) {
 	        		sfr.txtId.setText("");
 	        		sfr.comboBox.setSelectedItem("선택해주세요");
 	        		sfr.comboBox.setEnabled(false);
 	        		sfr.txtDate.setEditable(true);
+	        		sfr.txtDate2.setEditable(true);
 
 	        	}
 	        }
@@ -286,7 +322,8 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
 		if (!(sfr.txtId.getText().length() == 0)) {
 			sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice ,history.hdate, "  
 										              + "case hsize " 
-										              + "when 'l' then cprice + 500 " 
+// l -> Large 수정
+										              + "when 'Large' then cprice + 500 " 
 										              + "else cprice "  
 									                  + "end as hprice " 
 										              + "from history, menu where history.hmenu IN (menu.cname) and history.hid like '%" + sfr.txtId.getText() + "%' "
@@ -296,7 +333,8 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
 		else if (!(sfr.comboBox.getSelectedItem() == "선택해주세요")) {
 			sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice, history.hdate, "  
 														+ "case hsize " 
-														+ "when 'l' then cprice + 500 "  
+// l -> Large 수정
+														+ "when 'Large' then cprice + 500 "  
 														+ "else cprice "  
 														+ "end as hprice "  
 														+ "from history, menu where history.hmenu IN (menu.cname) and history.hmenu like '%" +sfr.comboBox.getSelectedItem() + "%' "
@@ -306,10 +344,13 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
 		else if (!(sfr.txtDate.getText().length() == 0)) {
 			sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice, history.hdate, "
 					+ "case hsize "
-					+ "when 'l' then cprice + 500 " 
+// l -> Large 수정
+					+ "when 'Large' then cprice + 500 " 
 					+ "else cprice "
 					+ "end as hprice "
-					+ "from history, menu where history.hmenu IN (menu.cname) and history.hdate like '%" + sfr.txtDate.getText() + "%' "
+//					+ "from history, menu where history.hmenu IN (menu.cname) and history.hdate like '%" + sfr.txtDate.getText() + "%' "
+// where절 수정
+					+ "from history, menu where history.hmenu IN (menu.cname) and history.hdate between '" + sfr.txtDate.getText() + "' and '" + sfr.txtDate2.getText() + "'"       
 					+ "order by hdate";
 			System.out.println("날짜로 검색 실행");
 		}
@@ -351,15 +392,30 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
 	return temp;
 }
    
-	 public void CusSearchview(DefaultTableModel model, String hmenu ) {
+
+// 검색 수정 ( 회원 id만)
+public void CusSearchview(DefaultTableModel model, String hmenu, String id  ) {
 	      try {
-	         String sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice ,history.hdate, " 
-	         							               + "case hsize "  
-	         							               + "when 'l' then cprice " 
-	         							               + "else cprice "  
-	         							               + "end as hprice "  
-	         							               + "from history, menu where history.hmenu IN (menu.cname) and hmenu like '%" + hmenu.trim() + "%'";
-	         pstmt = con.prepareStatement(sql);
+	    	// l -> Large 수정
+	    	// 가격 수정	       
+	    	// 검색 수정 ( 회원 id만)	  
+
+	        //검색 탈퇴한 회원의 내역이 내 내역에 뜨지 않게 수정(21.05.19) 김수정 
+	     	String sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice ,history.hdate, " 
+	     			+"case hsize " 
+	     			+"when 'Large' then cprice +500 "
+	     			+"else cprice " 
+	     			+"end as hprice " 
+	     			+"from history, menu "
+	     			+"where history.hdate >= (select pdate from customer where pid = ?) "
+	     			+"and history.hmenu in (menu.cname) and hmenu like '%" + hmenu.trim() + "%'"
+	     			+"and hid = ?"
+	     			+ "order by hno desc" ;
+	     				pstmt = con.prepareStatement(sql);
+	     				 pstmt.setString(1, id);
+	     				 pstmt.setString(2, id);
+	         
+	         
 	         rs = pstmt.executeQuery();
 	         
 	         for (int i = 0; i < model.getRowCount();) {
@@ -391,7 +447,8 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
 			try {
 				String sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice, history.hdate, "  
 						+ "case hsize " 
-						+ "when 'l' then cprice + 500 "  
+// l -> Large 수정
+						+ "when 'Large' then cprice + 500 "  
 						+ "else cprice "  
 						+ "end as hprice "  
 						+ "from history, menu where history.hmenu IN (menu.cname) and history.hmenu = '" + menuitem + "'";
@@ -423,6 +480,7 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
    
    public HistoryVO modifyhistory(HistoryVO dto) throws Exception
 	{    
+	   
 	 String sql = "UPDATE history SET  "
 				+ "hsize = ?, hmenu = ?, hoption = ? "
 				+ "WHERE hno = ?";
@@ -456,7 +514,8 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
 		      
 		      String sql = "select history.hno,history.hid, history.hmenu, history.hsize,history.hoption, menu.cprice, history.hdate, "
 		    		  				+ "case hsize "
-		    		  				+ "when 'l' then cprice + 500 " 
+// l -> Large 수정
+		    		  				+ "when 'Large' then cprice + 500 " 
 		    		  				+ "else cprice "
 		    		  				+ "end as hprice "
 		    		  				+ "from history, menu where history.hmenu IN (menu.cname) and history.hno = '"+ manager.txtNo.getText() + "'";
@@ -489,18 +548,22 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
 
 		       }
 		       if(manager.rbtnSize_m.isSelected()) {
-		    	   size = "m";
+// m -> Medium 수정	    	   
+		    	   size = "Medium";
 		       }else if(manager.rbtnSize_l.isSelected()) {
-		    	   size = "l";
+// l -> Large 수정
+		    	   size = "Large";
 		       }
 		   
 		    if(manager.rbtnOption_h.isSelected()) {
-		    	   option = "h";
+// h -> Hot 수정
+		    	   option = "Hot";
 		       }else if(manager.rbtnOption_i.isSelected()) {
-		    	   option = "i";
+// i -> Ice 수정
+		    	   option = "Ice";
 		       }
-		    
-		      if(dtoup.gethOption() == null) {
+ // if -else문 수정		    
+		    if(dtoup.gethSize() == null && dtoup.gethOption() == null) {
 		    	  if(dtoup.gethMenu().trim().equals(manager.comboBox.getSelectedItem())) {
 			    	   System.out.println("if-&&문 실행");
 			    	   JOptionPane.showMessageDialog(manager, "수정할 내용을 입력해주세요");
@@ -515,7 +578,6 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
 				    	   return;
 				   }
 		      }
-
 		      
 		      String sqlup;
 		  if (manager.comboBox.getSelectedItem() == "뉴욕치즈케이크" || manager.comboBox.getSelectedItem() == "크로크무슈"
@@ -531,8 +593,9 @@ public int[] searchview(DefaultTableModel model, SelectFrame sfr, HistoryView ma
 					|| manager.comboBox.getSelectedItem() == "사과에이드" || manager.comboBox.getSelectedItem() == "딸기요거트스무디"
 					|| manager.comboBox.getSelectedItem() == "블루베리요거트스무디" || manager.comboBox.getSelectedItem() == "키위요거트스무디"
 					|| manager.comboBox.getSelectedItem() == "돌체콜드브루") { 
-			  sqlup = "update history set hmenu = '" + manager.comboBox.getSelectedItem()+ "', hsize = " + null
-						+ ", hoption = 'i' where hno = '" + manager.txtNo.getText() + "'";
+// null -> size 수정 ,'' 넣음	///////////////////////////////////////////////////////////////////////////////////////////////////////////			  
+			  sqlup = "update history set hmenu = '" + manager.comboBox.getSelectedItem()+ "', hsize = '" + size
+					  + "', hoption = 'Ice' where hno = '" + manager.txtNo.getText() + "'";
 			  
 		  } else {
 			  sqlup = "update history set hmenu = '" + manager.comboBox.getSelectedItem()+ "', hsize = '" + size

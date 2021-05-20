@@ -15,7 +15,7 @@ public class SelectFrame extends JFrame {
 	public JPanel panWest;
 	public JPanel panSouth;
 	public JPanel p0, p1, p2, p3;
-	public JTextField txtId, txtName, txtDate;
+	public JTextField txtId, txtName, txtDate, txtDate2;
 	public JButton btnOk, btnCancel;
 	
 	String menuName[] = {"선택해주세요", "아메리카노", "카페라떼", "카페모카", "바닐라라떼", "초코라떼", "돌체라떼", "자바치프라푸치노",
@@ -30,25 +30,27 @@ public class SelectFrame extends JFrame {
 		setBounds(370, 120, 250, 300);
 		panNorth = new JPanel();
 		p0 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		p0.add(new JLabel("무엇으로 검색하시겠습니까?"));
-//		p0.add(new JLabel("<html>무엇으로 검색하시겠습니까?<br>검색할 항목을 선택해주세요.</html>"));
+//		p0.add(new JLabel("무엇으로 검색하시겠습니까?"));
+		p0.add(new JLabel("<html>       무엇으로 검색하시겠습니까?<br>주문 날짜는 년/월/일로 검색해주세요.</html>"));
 		panNorth.add(p0);
 		add(panNorth, "North");
 		panWest = new JPanel(new GridLayout(7,0));
 		p1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p1.add(new JLabel("아  이  디"));
+		p1.add(new JLabel("아 이 디  "));
 		p1.add(txtId = new JTextField(14));
 		panWest.add(p1);
 		
 		p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p2.add(new JLabel("상 품 명"));
+		p2.add(new JLabel("상 품 명  "));
 		comboBox = new JComboBox<String>(menuName);
 		p2.add(comboBox);
 		panWest.add(p2);
 
 		p3 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		p3.add(new JLabel("주  문  날  짜"));
-		p3.add(txtDate = new JTextField(14));
+		p3.add(new JLabel("주문  날짜"));
+		p3.add(txtDate = new JTextField(6));
+		p3.add(new JLabel(" ~ "));
+		p3.add(txtDate2 = new JTextField(6));
 		panWest.add(p3);
 		add(panWest, "Center");
 		
@@ -58,6 +60,7 @@ public class SelectFrame extends JFrame {
 		add(panSouth, "South");
 		
 		pack();
+		setTitle(" 검 색");
 	}
 
 }
