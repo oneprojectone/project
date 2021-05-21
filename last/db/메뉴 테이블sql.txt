@@ -1,0 +1,37 @@
+CREATE TABLE menu (
+ CNO VARCHAR2(10) CONSTRAINT menu_cno_pk PRIMARY KEY,
+ CNAME VARCHAR2(30) CONSTRAINT menu_cname_nn NOT NULL,
+ CPRICE NUMBER(8) CONSTRAINT menu_cprice_nn NOT NULL
+);
+
+INSERT INTO menu VALUES ( 'C001', '아메리카노', 1500);
+INSERT INTO menu VALUES ( 'C002', '카페라떼', 3500);
+INSERT INTO menu VALUES ( 'C003', '카페모카', 3500);
+INSERT INTO menu VALUES ( 'C004', '바닐라라떼', 3500);
+INSERT INTO menu VALUES ( 'C005', '초코라떼', 3500);
+INSERT INTO menu VALUES ( 'C006', '돌체라떼', 3500);
+INSERT INTO menu VALUES ( 'C007', '자바칩프라푸치노', 4500);
+INSERT INTO menu VALUES ( 'C008', '흑당라떼', 5500);
+INSERT INTO menu VALUES ( 'C009', '민트초코칩프라푸치노', 5500);
+INSERT INTO menu VALUES ( 'C010', '콜드브루', 3500);
+INSERT INTO menu VALUES ( 'C011', '콜드브루라떼', 3500);
+INSERT INTO menu VALUES ( 'C012', '카푸치노', 3500);
+INSERT INTO menu VALUES ( 'C013', '카라멜마끼아또', 4500);
+INSERT INTO menu VALUES ( 'C014', '에스프레소', 2500);
+INSERT INTO menu VALUES ( 'C015', '자몽허니블랙티', 3500);
+INSERT INTO menu VALUES ( 'C016', '제주한라산녹차라떼', 2500);
+INSERT INTO menu VALUES ( 'C017', '돌체콜드브루', 3000);
+INSERT INTO menu VALUES('D000', '뉴욕치즈케이크', 7500);
+INSERT INTO menu VALUES('D001', '크로크무슈', 8500);
+INSERT INTO menu VALUES('D002', '허니브레드', 8000);
+INSERT INTO menu VALUES('D003', '초코머핀', 6500);
+INSERT INTO menu VALUES('D004', '베이글', 4500);
+INSERT INTO menu VALUES('D005', '티라미수케이크', 9500);
+INSERT INTO menu VALUES('D006', '민트초코케이크', 8500);
+INSERT INTO menu VALUES('D007', '베리베리스트로베리', 10000);
+INSERT INTO menu VALUES('A000', '자몽에이드', 2500);
+INSERT INTO menu VALUES('A001', '레몬에이드', 3000);
+INSERT INTO menu VALUES('A002', '사과에이드', 2500);
+INSERT INTO menu VALUES('A003', '딸기요거트스무디', 4000);
+INSERT INTO menu VALUES('A004', '블루베리요거트스무디', 4000);
+INSERT INTO menu VALUES('A005', '키위요거트스무디', 3500);

@@ -1,0 +1,54 @@
+CREATE TABLE CUSTOMER (
+PNAME VARCHAR2(10) CONSTRAINT CUS_PNAME_NN NOT NULL,
+PID VARCHAR2(20) CONSTRAINT CUS_PID_PK PRIMARY KEY,
+PPWD VARCHAR2(20) CONSTRAINT CUS_PPWD_NN NOT NULL,
+PGENDER CHAR(8) CONSTRAINT CUS_PGENDER_CK CHECK(PGENDER IN('M','F')),
+PEMAIL VARCHAR2(30),
+PTEL VARCHAR2(20) NOT NULL,
+PADDR VARCHAR2(6),
+PACCOUNT VARCHAR2(25) CONSTRAINT CUS_PACCOUNT_NN NOT NULL,
+PDATE DATE DEFAULT SYSDATE);
+
+INSERT INTO CUSTOMER values('관리자', 'GMC01', 'GMC01', 'F', 'GMC01@naver.com', '111-1111-1111', '한국', 'KOSMO 111-111-111111', '21/01/01');
+INSERT INTO CUSTOMER values('이릴리', 'lily93', 'lily93', 'F', 'hj2hj9@naver.com', '010-1212-1684', '경기', 'SINNAH 110-123-424353', '21/01/02');
+INSERT INTO CUSTOMER values('수정수', 'sj0327', 'sj0327', 'F', 'sj0327@gmail.com', '010-2453-4644', '인천', 'HAPPY 152-142-454664', '21/01/04');
+INSERT INTO CUSTOMER values('지원지', 'ljw1126', 'ljw1126', 'F', 'ljw1126@gmail.com', '010-1234-4324', '서울', 'GMOD 166-123-784641', '21/01/06');
+INSERT INTO CUSTOMER values('형준형', 'hj1104', 'hj1104', 'M', 'hj1104@nate.com', '010-2645-1456', '충북', 'GMOD 124-554-797979', '21/01/12');
+INSERT INTO CUSTOMER values('성훈성', 'ksh0120', 'ksh0120', 'M', 'ksh0120@naver.com', '010-7742-2078', '충남', 'HAPPY 758-157-637312', '21/01/16');
+INSERT INTO CUSTOMER values('주혁주', 'kjh0214', 'kjh0214', 'M', 'kjh0214@hanmail.net', '010-8886-4547', '경남', 'SINNAH 164-884-436313', '21/01/21');
+INSERT INTO CUSTOMER values('인길인', 'yig0709', 'yig0709', 'M', 'yig0709@gmail.com', '010-2536-1126', '경북', 'KOSMO 115-487-224679', '21/01/27');
+INSERT INTO CUSTOMER values('슈리마', 'tommy34', 'tommy34', 'F', 'tommy34@nate.com', '010-2353-6865', '전남', 'KOSMO 778-778-778778', '21/02/02');
+INSERT INTO CUSTOMER values('사미라', 'brown54', 'brown54', 'F', 'brown54@naver.com', '010-1235-1235', '전북', 'HAPPY 123-453-113131', '21/02/05');
+INSERT INTO CUSTOMER values('간미요', 'crystal3', 'crystal3', 'F', 'crystal3@nate.com', '010-1456-7939', '제주', 'GMOD 115-789-756321', '21/02/16');
+INSERT INTO CUSTOMER values('기마임', 'dunedune29', 'dunedune29', 'M', 'dunedune29@gmail.com', '010-3425-5764', '강원', 'GMOD 264-467-367432', '21/02/19');
+INSERT INTO CUSTOMER values('이무자', 'brojoon7', 'brojoon7', 'F', 'brojoon7@hanmail.net', '010-2243-8845', '제주', 'HAPPY 788-795-257895', '21/02/25');
+INSERT INTO CUSTOMER values('보노리', 'bonobono99', 'bonobono99', 'M', 'bonobono99@paran.com', '010-4790-1151', '인천', 'SINNAH 111-789-856232', '21/02/28');
+INSERT INTO CUSTOMER values('포로리', 'poroly01', 'poroly01', 'F', 'poroly01@paran.com', '010-8851-8743', '서울', 'GMOD 789-113-468462', '21/03/01');
+INSERT INTO CUSTOMER values('미란다', 'huf11', 'huf11', 'F', 'huf11@naver.com', '010-6666-4142', '경기', 'HAPPY 666-465-777777', '21/01/02');
+INSERT INTO CUSTOMER values('허수정', 'water_pure', 'water_pure', 'F', 'water_pure@gmail.com', '010-7575-8282', '전남', 'KOSMO 555-555-555555', '21/03/03');
+INSERT INTO CUSTOMER values('성수기', 'castle_hoon', 'castle_hoon', 'M', 'castle_hoon@nate.com', '010-1577-1654', '경남', 'SINNAH 332-465-313131', '21/03/05');
+INSERT INTO CUSTOMER values('안민경', 'kosmo02', 'ann930721', 'F', 'amk@gmail.com', '010-1701-3684', '경기', 'KOSMO 110-368-257182', '21/03/08');  
+INSERT INTO CUSTOMER values('김한길', 'gadi17', 'gadi17', 'M', 'hgil11@naver.com', '010-3664-1010', '서울', 'SINNAH 236-137-363579', '21/03/08');
+INSERT INTO CUSTOMER values('한성운', 'rain_bow', 'rain_bow', 'M', 'raincloud@naver.com', '011-711-8756', '인천', 'HAPPY 130-178-219778', '21/03/10');
+INSERT INTO CUSTOMER values('최미나', 'marvel', 'marvel', 'F', 'heroes@naver.com', '010-1190-2107', '서울', 'GMOD 368-1109-70856', '21/03/15');
+INSERT INTO CUSTOMER values('기민우', 'gaomonTB', 'gaomonTB', 'M', 'gigao@gamil.com', '010-9207-1357', '부산', 'GMOD 110-657-191083', '21/03/15');
+INSERT INTO CUSTOMER values('이한솔', 'honey88', 'honey88', 'F', 'phooh@naver.com', '010-7737-3446', '전주', 'HAPPY 130-902-486013', '21/03/21');
+INSERT INTO CUSTOMER values('김정민', 'braindark', 'braindark', 'M', 'darrrrk@gmail.com', '010-7399-1221', '경기', 'KOSMO 289-103-884656', '21/03/22');
+INSERT INTO CUSTOMER values('박경태', 'mondayhate', 'mondayhate', 'M', 'pkt@naver.com', '010-1579-4628','', 'KOSMO 346-756-190023', '21/03/27');
+INSERT INTO CUSTOMER values('김인아', 'hummingbird', 'hummingbird', 'F', '', '010-2478-1100','대전', 'HAPPY 120-908-110132', '21/03/27');
+INSERT INTO CUSTOMER values('한송이', 'rose90', 'rose90', 'F', 'songee@gmail.com', '010-3446-3027','부산', 'SINNAH 278-652-826913', '21/04/02');
+INSERT INTO CUSTOMER values('송은주', 'Amy02', 'Amy02', 'F', 'eungdue@gamil.com', '010-0421-7979','', 'SINNAH 153-007-429821', '21/04/11');
+INSERT INTO CUSTOMER values('황성훈', 'handsomeguy', 'handsomeguy', 'M', 'sh94@naver.com', '010-8871-1251','서울', 'GMOD 330-187-135293', '21/04/15');
+INSERT INTO CUSTOMER values('오정민', 'violet97', 'violet97', 'M', 'ohj@naver.com', '010-0501-1259','강원', 'GMOD 210-501-923012', '21/04/21');
+INSERT INTO CUSTOMER values('조경선', 'prettywomen', 'prettywomen', 'F', 'sunny@naver.com', '010-8193-1101','여수', 'HAPPY 927-104-283450', '21/04/22');
+INSERT INTO CUSTOMER values('안영환', 'hellen', 'hellen', 'M', 'hellen@naver.com', '010-2097-1293','경기', 'KOSMO 102-593-198327', '21/04/30');
+INSERT INTO CUSTOMER values('안정훈', 'shyboy2', 'shyboy2', 'M', 'shyboy2@naver.com', '010-1984-9078','서울', 'SINNAH 902-192-190835', '21/05/01');
+INSERT INTO CUSTOMER values('소은성', 'sophia77', 'sophia77', 'F', 'sophia77@naver.com', '010-9083-1473','대구', 'KOSMO 190-915-197427', '21/05/05');
+INSERT INTO CUSTOMER values('김지우', 'seventeen', '17179', 'F', 'sixteen@gmail.com', '010-1487-2387','서울', 'GMOD 209-102-496816', '21/05/10');
+INSERT INTO CUSTOMER values('남유정', 'brave', 'brave', 'F', 'brave@gmail.com', '010-2459-3518','서울', 'GMOD 124-202-208309', '21/01/29');
+INSERT INTO CUSTOMER values('남유정', 'gilrs', 'gilrs', 'M', 'girls@naver.com', '010-1361-6955','인천', 'SINNAH 193-692-329239', '21/02/11');
+INSERT INTO CUSTOMER values('남유정', 'nyj0502', 'nyj0502', 'F', 'nyj@nate.com', '010-1991-2522','대전', 'HAPPY 198-598-490811', '21/03/17');
+INSERT INTO CUSTOMER values('남유정', 'rollin', 'rollin', 'M', 'rollin@paran.com', '010-5957-3762','울산', 'KOSMO 330-138-479911', '21/04/06');
+INSERT INTO CUSTOMER values('남유정', 'turtle', 'turtle', 'F', 'turtle@hanmail.net', '010-1672-2291','전주', 'KOSMO 201-291-598106', '21/05/10');
+
+

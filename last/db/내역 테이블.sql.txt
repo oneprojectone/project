@@ -1,0 +1,92 @@
+
+create table history (
+hno number(3) primary key, 
+hid varchar2(20),   
+hmenu varchar2(30) not null,
+hsize varchar2(10) CONSTRAINT CUS_hsize_CK CHECK(hsize IN('Medium','Large')),
+hoption varchar2(10) CONSTRAINT CUS_hoption_CK CHECK(hoption IN('Ice','Hot')),
+hdate date default sysdate 
+);
+
+insert into history values(1, 'lily93', '아메리카노', 'Large', 'Ice', '21/01/03');
+insert into history values(2, 'lily93', '뉴욕치즈케이크', '', '', '21/01/03');
+insert into history values(3, 'sj0327', '카페라떼', 'Medium', 'Ice', '21/01/05');
+insert into history values(4, 'sj0327', '크로크무슈', '', '', '21/01/05');
+insert into history values(5, 'ljw1126', '카페모카', 'Large', 'Hot', '21/01/07');
+insert into history values(6, 'ljw1126', '허니브레드', '', '', '21/01/07');
+insert into history values(7, 'hj1104', '바닐라라떼', 'Large', 'Ice', '21/01/13');
+insert into history values(8, 'hj1104', '초코머핀', '', '', '21/01/13');
+insert into history values(9, 'ksh0120', '초코라떼', 'Medium', 'Ice', '21/01/17');
+insert into history values(10, 'ksh0120', '베이글', '', '', '21/01/17');
+insert into history values(11, 'kjh0214', '돌체라떼', 'Large', 'Ice', '21/01/22');
+insert into history values(12, 'kjh0214', '티라미수케이크', '', '', '21/01/22');
+insert into history values(13, 'yig0709', '자바칩프라푸치노', 'Large', 'Ice', '21/01/28');
+insert into history values(14, 'yig0709', '민트초코케이크', '', '', '21/01/28');
+insert into history values(15, 'brave', '아메리카노', 'Large', 'Ice', '21/01/30');
+insert into history values(16, 'brave', '뉴욕치즈케이크', '', '', '21/01/30');
+insert into history values(17, 'tommy34', '흑당라떼', 'Medium', 'Ice', '21/02/03');
+insert into history values(18, 'tommy34', '베리베리스트로베리', '', '', '21/02/03');
+insert into history values(19, 'brown54', '민트초코칩프라푸치노', 'Medium', 'Ice', '21/02/05');
+insert into history values(20, 'brown54', '자몽에이드', 'Large', 'Ice', '21/02/05');
+insert into history values(21, 'crystal3', '콜드브루', 'Large', 'Ice', '21/02/17');
+insert into history values(22, 'crystal3', '레몬에이드', 'Medium', 'Ice', '21/02/17');
+insert into history values(23, 'gilrs', '카페라떼', 'Medium', 'Ice', '21/02/17');
+insert into history values(24,  'gilrs', '크로크무슈', '', '', '21/02/17');
+insert into history values(25, 'dunedune29', '콜드브루라떼', 'Medium', 'Ice', '21/02/20');
+insert into history values(26, 'dunedune29', '사과에이드', 'Medium', 'Ice', '21/02/20');
+insert into history values(27, 'brojoon7', '카푸치노', 'Medium', 'Hot', '21/02/26');
+insert into history values(28, 'brojoon7', '딸기요거트스무디', 'Large', 'Ice', '21/02/26');
+insert into history values(29, 'bonobono99', '카라멜마끼아또', 'Medium', 'Ice', '21/03/01');
+insert into history values(30, 'bonobono99', '블루베리요거트스무디', 'Large', 'Ice', '21/03/01');
+insert into history values(31, 'poroly01', '에스프레소', 'Medium', 'Hot', '21/03/02');
+insert into history values(32, 'poroly01', '키위요거트스무디', 'Medium', 'Ice', '21/03/02');
+insert into history values(33, 'huf11', '자몽허니블랙티', 'Medium', 'Ice', '21/03/03');
+insert into history values(34, 'water_pure', '제주한라산녹차라떼', 'Large', 'Ice', '21/03/04');
+insert into history values(35, 'castle_hoon', '돌체콜드브루', 'Large', 'Ice', '21/03/06');
+INSERT INTO history VALUES ( 36,'kosmo02', '아메리카노', 'Medium','Ice','21/03/08');
+INSERT INTO history VALUES ( 37,'gadi17', '아메리카노', 'Large','Hot','21/03/09');
+INSERT INTO history VALUES ( 38,'rain_bow', '바닐라라떼', 'Large','Hot','21/03/11');
+INSERT INTO history VALUES ( 39,'marvel', '카페라떼', 'Medium','Ice','21/03/15');
+INSERT INTO history VALUES ( 40,'gaomonTB', '아메리카노', 'Large','Ice','21/03/16');
+INSERT INTO history VALUES ( 41,'honey88', '자몽허니블랙티', 'Medium','Hot','21/03/22');
+INSERT INTO history VALUES ( 42,'braindark', '돌체라떼', 'Medium','Ice','21/03/23');
+INSERT INTO history VALUES ( 43,'mondayhate', '콜드브루', 'Medium','Ice','21/03/27');
+insert into history values(44, 'nyj0502', '카페모카', 'Large', 'Hot', '21/03/27');
+insert into history values(45, 'nyj0502', '허니브레드', '', '', '21/03/27');
+INSERT INTO history VALUES ( 46,'hummingbird', '아메리카노', 'Large','Hot','21/03/29');
+INSERT INTO history VALUES ( 47,'rose90', '민트초코칩프라푸치노', 'Medium','Hot','21/04/03');
+INSERT INTO history VALUES ( 48,'Amy02', '제주한라산녹차라떼', 'Large','Ice','21/04/12');
+INSERT INTO history VALUES ( 49,'handsomeguy', '키위요거트스무디', 'Large','Ice','21/04/16');
+INSERT INTO history VALUES ( 50,'violet97', '자몽에이드', 'Medium','Ice','21/04/21');
+INSERT INTO history VALUES ( 51,'prettywomen', '카페라떼', 'Large','Hot','21/04/22');
+INSERT INTO history VALUES ( 52,'hellen', '에스프레소', 'Medium','Hot','21/05/01');
+INSERT INTO history VALUES ( 53,'shyboy2', '레몬에이드', 'Medium','Ice','21/05/03');
+INSERT INTO history VALUES ( 54,'sophia77', '돌체콜드브루', 'Large','Hot','21/05/05');
+INSERT INTO history VALUES ( 55,'seventeen', '흑당라떼', 'Medium','Ice','21/05/11');
+INSERT INTO history VALUES ( 56,'kosmo02', '자바칩프라푸치노', 'Medium','Ice','21/04/11');
+INSERT INTO history VALUES ( 57,'gadi17', '아메리카노', 'Large','Hot','21/05/1');
+INSERT INTO history VALUES ( 58,'rain_bow', '베이글', '','','21/04/16');
+INSERT INTO history VALUES ( 59,'marvel', '카페라떼', 'Medium','Ice','21/03/18');
+INSERT INTO history VALUES ( 60,'gaomonTB', '아메리카노', 'Large','Hot','21/04/05');
+insert into history values(61, 'rollin', '바닐라라떼', 'Large', 'Ice', '21/04/08');
+insert into history values(62, 'rollin', '초코머핀', '', '', '21/04/08');
+INSERT INTO history VALUES ( 63,'honey88', '카라멜마끼아또', 'Medium','Hot','21/05/01');
+INSERT INTO history VALUES ( 64,'braindark', '초코머핀', '','','21/03/27');
+INSERT INTO history VALUES ( 65,'mondayhate', '티라미수케이크', '','','21/04/21');
+INSERT INTO history VALUES ( 66,'hummingbird', '아메리카노', 'Large','Hot','21/03/31');
+INSERT INTO history VALUES ( 67,'rose90', '민트초코케이크', '','','21/04/10');
+INSERT INTO history VALUES ( 68,'Amy02', '제주한라산녹차라떼', 'Large','Ice','21/04/28');
+INSERT INTO history VALUES ( 69,'handsomeguy', '키위요거트스무디', 'Large','Ice','21/05/08');
+INSERT INTO history VALUES ( 70,'violet97', '카푸치노', 'Large','Ice','21/04/25');
+INSERT INTO history VALUES ( 71,'prettywomen', '카페라떼', 'Large','Hot','21/04/24');
+INSERT INTO history VALUES ( 72,'hellen', '에스프레소', 'Medium','Hot','21/05/05');
+INSERT INTO history VALUES ( 73,'shyboy2', '크로크무슈', '','','21/05/05');
+INSERT INTO history VALUES ( 74,'sophia77', '뉴욕치즈케이크', '','','21/05/08');
+INSERT INTO history VALUES ( 75,'seventeen', '뉴욕치즈케이크', '','','21/05/17');
+insert into history values(76,  'turtle', '초코라떼', 'Medium', 'Ice', '21/05/20');
+insert into history values(77,  'turtle', '베이글', '', '', '21/05/20');
+
+
+
+
+
