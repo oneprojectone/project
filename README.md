@@ -1,5 +1,4 @@
-# project
-KOSMO 84기 1차 JAVA 프로젝트
+# KOSMO 84기 1차 JAVA 프로젝트
 비대면 카페 주문 시스템 구현
 
 Team ONE :김수정, 권형준, 김성훈, 김주혁, 유인길, 이지원
