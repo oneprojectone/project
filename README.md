@@ -3,6 +3,9 @@
 
 Team ONE :김수정, 권형준, 김성훈, 김주혁, 유인길, 이지원
 
+YOUTUBE : https://youtu.be/Jqc4z7rlEb0
+PPT : https://docs.google.com/presentation/d/1lwtFFSs1fqcA5U2IPzQLPYvcM-uIzFVIpVF2LdbGS3I/edit?usp=sharin
+
 코로나 상황에서 비대면 주문의 수요가 증가하면서 카페에서도 비대면 주문 프로세스의 도입이 증가하고 있습니다. 본 프로젝트는 비대면 주문 시 사용자에게 편리성을 제공하고 기업의 매출 하락을 방지하며, 마케팅의 효과를 얻을 수 있도록 기획되었습니다.
 
 - 고객 관점
