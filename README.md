@@ -16,3 +16,5 @@ PPT : https://docs.google.com/presentation/d/1lwtFFSs1fqcA5U2IPzQLPYvcM-uIzFVIpV
 - 사업자 관점
 
 고객의 데이터베이스 관리로 회원 관리가 용이합니다. 상품 판매 현황 관리를 통해 총 매출, 수익, 트랜드 파악이 가능하며 고객에게 쿠폰과 스탬프를 제공하여 브랜드 이미지를 향상시킬 수 있습니다.
+
+![image](https://user-images.githubusercontent.com/82355307/143771594-39da179a-403f-4851-ad53-1586c11a0f85.png)
